@@ -4,9 +4,9 @@ terako is a discord bot that offers commands for searching animes and mangas via
 
 ## commands
 
-\>ANIME \<name>
-\>MANGA \<name>
-\>ANIMELIST \<genre>
-\>PLAY \<url|search string>
-\>LEAVE
-\>HELP
+\>ANIME \<name>  
+\>MANGA \<name>  
+\>ANIMELIST \<genre>  
+\>PLAY \<url|search string>  
+\>LEAVE  
+\>HELP  
