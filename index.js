@@ -64,7 +64,7 @@ client.on('message', msg => {
         msg.channel.send("Aktuell stehen folgende Befehle zur Verfügung:\n\
 " + prefix + "**A**NIME <Suchbegriff> - *Gibt Infos zu einem Anime aus*\n\
 " + prefix + "**A**NIME**L**IST <Genre> - *Gibt Animes eines bestimmten Genres in der aktuellen Season aus*\n\
-" + prefix + "**C**ORONA (<Landkreis|Stadt>)|BL - *Listet aktuelle Corona-Hotspots in Deutschland*\n\
+" + prefix + "**C**ORONA (<Landkreis|Stadt>|BL) - *Listet aktuelle Corona-Hotspots in Deutschland*\n\
 " + prefix + "**L**EAVE - *Wirft den Bot aus einem Audiokanal*\n\
 " + prefix + "**M**ANGA <Suchbegriff> - *Gibt Infos zu einem Manga aus*\n\
 " + prefix + "**P**LAY <YouTube-Link>|<Suchbegriff> - *Spielt ein YouTube-Video im Audiokanal ab*\n\
