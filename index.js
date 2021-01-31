@@ -4,6 +4,7 @@ const anime = require('./bot_modules/anime.js')
 const youtube = require('./bot_modules/youtube.js')
 const wikipedia = require('./bot_modules/wiki.js')
 const corona = require('./bot_modules/corona.js')
+const game = require('./bot_modules/game.js')
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -60,11 +61,16 @@ client.on('message', msg => {
         }
     }
 
+    if (msg.content.toUpperCase().startsWith(prefix + 'GAME ') || msg.content.toUpperCase().startsWith(prefix + 'G ')) {
+        game.getGameInfo(msg)
+    }
+
     if (msg.content.toUpperCase() === prefix + 'HELP' || msg.content.toUpperCase() === prefix + '?') {
         msg.channel.send("Aktuell stehen folgende Befehle zur Verfügung:\n\
 " + prefix + "**A**NIME <Suchbegriff> - *Gibt Infos zu einem Anime aus*\n\
 " + prefix + "**A**NIME**L**IST <Genre> - *Gibt Animes eines bestimmten Genres in der aktuellen Season aus*\n\
 " + prefix + "**C**ORONA (<Landkreis|Stadt>|BL) - *Listet aktuelle Corona-Hotspots in Deutschland*\n\
+" + prefix + "**G**AME <Suchbegriff> - *Gibt Infos zu einem Videospiel aus*\n\
 " + prefix + "**L**EAVE - *Wirft den Bot aus einem Audiokanal*\n\
 " + prefix + "**M**ANGA <Suchbegriff> - *Gibt Infos zu einem Manga aus*\n\
 " + prefix + "**P**LAY <YouTube-Link>|<Suchbegriff> - *Spielt ein YouTube-Video im Audiokanal ab*\n\
