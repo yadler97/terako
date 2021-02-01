@@ -72,8 +72,8 @@ const getCoronaIncidenceOfRegion = function(msg) {
         data = data['features'];
 
         let msgtext = msg.content.substring(msg.toString().indexOf(' ') + 1);
-        let county = data.reverse().filter(function(data) {
-            return data.attributes.county.toLowerCase().includes(msgtext.toLowerCase())
+        let county = data.reverse().filter(function(original_data) {
+            return original_data.attributes.county.toLowerCase().includes(msgtext.toLowerCase())
         });
         if (county.length == 0) {
             msg.channel.send("Kein Landkreis oder Stadt gefunden")
@@ -97,7 +97,7 @@ const getCoronaIncidencePerState = function(msg) {
 
         let result = "Aktuelle 7-Tage-Inzidenz nach Bundesländern:\n```"
 
-        for (state of data) {
+        for (let state of data) {
             result += (state.attributes.LAN_ew_GEN + Array(45).join(' ')).substring(0, 45) + parseFloat(state.attributes.cases7_bl_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n"
         }
 

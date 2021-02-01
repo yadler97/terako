@@ -31,8 +31,8 @@ const getGameInfo = function(msg) {
 
             const embed = new MessageEmbed()
                 .setTitle(data.name)
-                .setImage("https://images.igdb.com/igdb/image/upload/t_original/" + data.screenshots[0].image_id + ".jpg")
-                .setThumbnail("https://images.igdb.com/igdb/image/upload/t_cover_big/" + data.cover.image_id + ".jpg")
+                .setImage(data.screenshots ? "https://images.igdb.com/igdb/image/upload/t_original/" + data.screenshots[0].image_id + ".jpg" : null)
+                .setThumbnail(data.cover ? "https://images.igdb.com/igdb/image/upload/t_cover_big/" + data.cover.image_id + ".jpg" : null)
                 .setURL(data.url)
                 .setColor(color)
                 .addField("Platforms", platforms)
