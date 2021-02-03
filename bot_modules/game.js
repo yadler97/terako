@@ -1,4 +1,5 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const stringSimilarity = require("string-similarity");
 
 const { MessageEmbed } = require('discord.js');
 
@@ -13,7 +14,12 @@ const getGameInfo = function(msg) {
         if (request.responseText == "[]") {
             msg.channel.send("Kein Spiel gefunden");
         } else {
-            var data = JSON.parse(request.responseText)[0];
+            var data = JSON.parse(request.responseText);
+            let games = data.map(game => game.name);
+
+            var matches = stringSimilarity.findBestMatch(msgtext, games);
+            data = data[matches.bestMatchIndex]
+
             let platforms = data.platforms.map(platform => platform.name).join(", ");
             let genres = data.genres.map(genre => genre.name).join(", ");
             let developers = data.involved_companies.filter(studio => studio.developer).map(studio => studio.company.name).join(", ");
@@ -45,7 +51,7 @@ const getGameInfo = function(msg) {
             msg.channel.send(embed);
         }
     });
-    request.send("fields name,release_dates.human,platforms.name,platforms.platform_family,summary,url,genres.name,cover.image_id,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,aggregated_rating,screenshots.image_id,rating_count; limit 1; search \"" + msgtext + "\"; where rating_count != null;");
+    request.send("fields name,release_dates.human,platforms.name,platforms.platform_family,summary,url,genres.name,cover.image_id,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,aggregated_rating,screenshots.image_id; limit 10; search \"" + msgtext + "\";");
 }
 
 module.exports = {
