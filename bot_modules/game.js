@@ -22,8 +22,8 @@ const getGameInfo = function(msg) {
 
             let platforms = data.platforms.map(platform => platform.name).join(", ");
             let genres = data.genres.map(genre => genre.name).join(", ");
-            let developers = data.involved_companies.filter(studio => studio.developer).map(studio => studio.company.name).join(", ");
-            let publishers = data.involved_companies.filter(studio => studio.publisher).map(studio => studio.company.name).join(", ");
+            let developers = data.involved_companies ? data.involved_companies.filter(studio => studio.developer).map(studio => studio.company.name).join(", ") : "unbekannt";
+            let publishers = data.involved_companies ? data.involved_companies.filter(studio => studio.publisher).map(studio => studio.company.name).join(", ") : "unbekannt";
             let platform_families = data.platforms.map(platform => platform.platform_family);
 
             let color = 0x000000
