@@ -55,9 +55,9 @@ client.on('message', msg => {
 
     if (msg.content.toUpperCase() === prefix + 'WIKI' || msg.content.toUpperCase() === prefix + 'W' || msg.content.toUpperCase().startsWith(prefix + 'WIKI ') || msg.content.toUpperCase().startsWith(prefix + 'W ')) {
         if (msg.content.toUpperCase() === prefix + 'WIKI' || msg.content.toUpperCase() === prefix + 'W') {
-            wikipedia.getRandomArticle(msg, "https://de.wikipedia.org");
+            wikipedia.getRandomArticle(msg);
         } else {
-            wikipedia.getArticle(msg, "https://de.wikipedia.org");
+            wikipedia.getArticle(msg);
         }
     }
 

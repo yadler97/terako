@@ -8,8 +8,8 @@ const getGameInfo = function(msg) {
 
     var request = new XMLHttpRequest();
     request.open("POST", "https://api.igdb.com/v4/games");
-    request.setRequestHeader("Client-ID", process.env.CLIENT_ID);
-    request.setRequestHeader("Authorization", "Bearer " + process.env.ACCESS_TOKEN);
+    request.setRequestHeader("Client-ID", process.env.IGDB_CLIENT_ID);
+    request.setRequestHeader("Authorization", "Bearer " + process.env.IGDB_TOKEN);
     request.addEventListener('load', function(event) {
         if (request.responseText == "[]") {
             msg.channel.send("Kein Spiel gefunden");
