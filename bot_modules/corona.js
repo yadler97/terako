@@ -18,7 +18,7 @@ Todesfälle gesamt: " + data.map(bl => bl.attributes.Death).reduce((a, b) => a +
 
 const getCoronaIncidenceBest = function(msg) {
     var request = new XMLHttpRequest();
-    request.open("GET","https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json");
+    request.open("GET","https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k,BL&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json");
     request.addEventListener('load', function(event) {
         var data = JSON.parse(request.responseText);
         data = data['features']
@@ -28,11 +28,11 @@ const getCoronaIncidenceBest = function(msg) {
         });
 
         msg.channel.send("Landkreise und Städte mit der niedrigsten Inzidenz:\n```\
-" + (data[0].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[0].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[1].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[1].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[2].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[2].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[3].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[3].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[4].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[4].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "```\n\
+" + (data[0].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[0].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[0].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[1].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[1].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[1].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[2].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[2].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[2].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[3].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[3].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[3].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[4].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[4].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[4].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "```\n\
         ")
     });
     request.send();
@@ -40,7 +40,7 @@ const getCoronaIncidenceBest = function(msg) {
 
 const getCoronaIncidenceWorst = function(msg) {
     var request = new XMLHttpRequest();
-    request.open("GET","https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json");
+    request.open("GET","https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k,BL&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json");
     request.addEventListener('load', function(event) {
         var data = JSON.parse(request.responseText);
         data = data['features']
@@ -54,11 +54,11 @@ const getCoronaIncidenceWorst = function(msg) {
         }*/
 
         msg.channel.send("Aktuelle Corona-Hotspots:\n```\
-" + (data[0].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[0].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[1].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[1].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[2].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[2].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[3].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[3].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
-" + (data[4].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + Array(45).join(' ')).substring(0, 45) + parseFloat(data[4].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "```\n\
+" + (data[0].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[0].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[0].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[1].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[1].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[1].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[2].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[2].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[2].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[3].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[3].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[3].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "\n\
+" + (data[4].attributes.county.replace("SK", "Stadt").replace("LK", "Landkreis") + " (" + getStateAbbreviation(data[4].attributes.BL) + ")" + Array(40).join(' ')).substring(0, 40) + parseFloat(data[4].attributes.cases7_per_100k).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "```\n\
         ")
     });
     request.send();
@@ -105,6 +105,45 @@ const getCoronaIncidencePerState = function(msg) {
         msg.channel.send(result)
     });
     request_bl.send();
+}
+
+const getStateAbbreviation = function(state) {
+    switch (state) {
+        case "Baden-Württemberg":
+            return "BW"
+        case "Bayern":
+            return "BY"
+        case "Berlin":
+            return "BE"
+        case "Brandenburg":
+            return "BB"
+        case "Bremen":
+            return "HB"
+        case "Hamburg":
+            return "HH"
+        case "Hessen":
+            return "HE"
+        case "Mecklenburg-Vorpommern":
+            return "MV"
+        case "Niedersachsen":
+            return "NI"
+        case "Nordrhein-Westfalen":
+            return "NW"
+        case "Rheinland-Pfalz":
+            return "RP"
+        case "Saarland":
+            return "SL"
+        case "Sachsen":
+            return "SN"
+        case "Sachsen-Anhalt":
+            return "ST"
+        case "Schleswig-Holstein":
+            return "SH"
+        case "Thüringen":
+            return "TH"
+        default:
+            return state
+    }
 }
 
 module.exports = {
