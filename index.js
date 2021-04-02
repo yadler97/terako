@@ -5,6 +5,7 @@ const youtube = require('./bot_modules/youtube.js')
 const wikipedia = require('./bot_modules/wiki.js')
 const corona = require('./bot_modules/corona.js')
 const game = require('./bot_modules/game.js')
+const rank = require('./bot_modules/rank.js')
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -16,6 +17,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+
     if (msg.content.toUpperCase().startsWith(prefix + 'ANIME ') || msg.content.toUpperCase().startsWith(prefix + 'A ')) {
         anime.getAnimeInfo(msg, "ANIME")
     }
@@ -62,7 +64,13 @@ client.on('message', msg => {
     }
 
     if (msg.content.toUpperCase().startsWith(prefix + 'GAME ') || msg.content.toUpperCase().startsWith(prefix + 'G ')) {
-        game.getGameInfo(msg)
+        game.getGameInfo(msg);
+    }
+
+    if (msg.content.toUpperCase() === prefix + 'RANK' || msg.content.toUpperCase() === prefix + 'R') {
+        rank.getLevel(msg);
+    } else {
+        rank.increaseLevel(msg);
     }
 
     if (msg.content.toUpperCase() === prefix + 'HELP' || msg.content.toUpperCase() === prefix + '?') {
@@ -74,6 +82,7 @@ client.on('message', msg => {
 " + prefix + "**L**EAVE - *Wirft den Bot aus einem Audiokanal*\n\
 " + prefix + "**M**ANGA <Suchbegriff> - *Gibt Infos zu einem Manga aus*\n\
 " + prefix + "**P**LAY <YouTube-Link>|<Suchbegriff> - *Spielt ein YouTube-Video im Audiokanal ab*\n\
+" + prefix + "**R**ANK - *Gibt den aktuellen Rang des Users aus*\n\
 " + prefix + "**W**IKI (<Begriff>) - *Definiert einen bestimmten Begriff mithilfe von Wikipedia*\
         ")
     }
