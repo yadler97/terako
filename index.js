@@ -50,6 +50,8 @@ client.on('message', msg => {
             corona.getCoronaIncidenceBest(msg);
         } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() == "BL") {
             corona.getCoronaIncidencePerState(msg);
+        } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() == "IMPFUNGEN") {
+            corona.getVaccinationStatus(msg);
         } else {
             corona.getCoronaIncidenceOfRegion(msg);
         }
@@ -77,7 +79,7 @@ client.on('message', msg => {
         msg.channel.send("Aktuell stehen folgende Befehle zur Verfügung:\n\
 " + prefix + "**A**NIME <Suchbegriff> - *Gibt Infos zu einem Anime aus*\n\
 " + prefix + "**A**NIME**L**IST <Genre> - *Gibt Animes eines bestimmten Genres in der aktuellen Season aus*\n\
-" + prefix + "**C**ORONA (<Landkreis|Stadt>|BL) - *Listet aktuelle Corona-Hotspots in Deutschland*\n\
+" + prefix + "**C**ORONA (<Landkreis|Stadt>|BL|IMPFUNGEN) - *Listet aktuelle Corona-Hotspots in Deutschland*\n\
 " + prefix + "**G**AME <Suchbegriff> - *Gibt Infos zu einem Videospiel aus*\n\
 " + prefix + "**L**EAVE - *Wirft den Bot aus einem Audiokanal*\n\
 " + prefix + "**M**ANGA <Suchbegriff> - *Gibt Infos zu einem Manga aus*\n\

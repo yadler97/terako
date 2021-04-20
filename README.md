@@ -10,7 +10,7 @@ terako is a discord bot that offers commands for searching animes and mangas via
 \>PLAY \<url|search string>  
 \>LEAVE  
 \>WIKI \(\<keyword>)  
-\>CORONA \(<city|county>|BL)  
+\>CORONA \(<city|county>|BL|IMPFUNGEN)  
 \>GAME \<name>  
 \>RANK  
 \>HELP  

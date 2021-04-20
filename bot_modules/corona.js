@@ -123,6 +123,31 @@ const getCoronaIncidencePerState = function(msg) {
     request_bl.send();
 }
 
+const state_population = {"de.bw":11100394, "de.by":13124737, "de.be":3669491, "de.bb":2521893, "de.hb":681202, "de.hh":1847253, "de.he":6288080, "de.mv":1608138, "de.ni":7993608, "de.nw":17947221, "de.rp":4093903, "de.sl":986887, "de.sn":4071971, "de.st":2194782, "de.sh":2903773, "de.th":2133378, "de":83166711}
+
+const getVaccinationStatus = function(msg) {
+    var request_vac = new XMLHttpRequest();
+    request_vac.open("GET", "https://interaktiv.morgenpost.de/data/corona/rki-vaccination.json");
+    request_vac.addEventListener('load', function(event) {
+        var data = JSON.parse(request_vac.responseText);
+
+        if (data != null) {
+            let result = "Aktuelle Impfquote nach Bundesländern:\n```Land                               Erstimpfungen            Vollständige Impfungen\n"
+
+            for (let state of data) {
+                console.log(state.cumsum_latest, state_population[state.id])
+                result += (state.name + Array(35).join(' ')).substring(0, 35) + (parseFloat((state.cumsum_latest-state.cumsum2_latest)/state_population[state.id]*100).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " %" + Array(25).join(' ')).substring(0, 25) + parseFloat(state.cumsum2_latest/state_population[state.id]*100).toLocaleString(env_lang, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " %\n"
+            }
+
+            result += "```"
+            msg.channel.send(result)
+        } else {
+            msg.channel.send("Keine Daten gefunden")
+        }
+    });
+    request_vac.send();
+}
+
 const getStateAbbreviation = function(state) {
     switch (state) {
         case "Baden-Württemberg":
@@ -167,5 +192,6 @@ module.exports = {
     getCoronaIncidenceBest,
     getCoronaIncidenceWorst,
     getCoronaIncidenceOfRegion,
-    getCoronaIncidencePerState
+    getCoronaIncidencePerState,
+    getVaccinationStatus
 }
