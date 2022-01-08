@@ -1,6 +1,6 @@
 {
   "name": "terako",
-  "version": "1.0.17",
+  "version": "1.0.30",
   "description": "The brand new Terako Bot",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
     "dotenv": "^8.2.0",
     "ffmpeg-static": "^4.2.6",
     "node-fetch": "^2.6.1",
+    "redis": "^3.1.0",
     "string-similarity": "^4.0.4",
     "xmlhttprequest": "^1.8.0",
     "ytdl-core": "^4.2.1",

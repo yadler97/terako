@@ -6,13 +6,13 @@ const { MessageEmbed } = require('discord.js');
 const getGameInfo = function (msg) {
     const msgtext = msg.content.substring(msg.toString().indexOf(' ') + 1);
 
-    const request = new XMLHttpRequest();
-    request.open('POST', 'https://api.igdb.com/v4/games');
-    request.setRequestHeader('Client-ID', process.env.CLIENT_ID);
-    request.setRequestHeader('Authorization', `Bearer ${process.env.ACCESS_TOKEN}`);
-    request.addEventListener('load', () => {
-        if (request.responseText == '[]') {
-            msg.channel.send('Kein Spiel gefunden');
+    var request = new XMLHttpRequest();
+    request.open("POST", "https://api.igdb.com/v4/games");
+    request.setRequestHeader("Client-ID", process.env.IGDB_CLIENT_ID);
+    request.setRequestHeader("Authorization", "Bearer " + process.env.IGDB_TOKEN);
+    request.addEventListener('load', function(event) {
+        if (request.responseText == "[]") {
+            msg.channel.send("Kein Spiel gefunden");
         } else {
             let data = JSON.parse(request.responseText);
             const games = data.map((game) => game.name);
