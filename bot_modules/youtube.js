@@ -23,7 +23,7 @@ const playVideo = function (msg) {
                         const time = `${minutes.toFixed(0)}:${seconds.toString().padStart(2, '0')}`;
                         const embed = new MessageEmbed()
                             .setTitle(info.videoDetails.title)
-                            .setThumbnail(info.videoDetails.thumbnails[4].url)
+                            .setThumbnail(info.videoDetails.thumbnails[3].url)
                             .setURL(info.videoDetails.video_url)
                             .setColor(0xff0000)
                             .addField('Uploader', info.videoDetails.author.name, inline = true)
