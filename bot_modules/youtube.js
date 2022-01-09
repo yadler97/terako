@@ -49,7 +49,7 @@ const playVideo = function (msg) {
 
 const searchVideo = async function (msg) {
     const searchResults = await ytsr(msg.content.substring(msg.toString().indexOf(' ') + 1));
-    msg.content = `>A ${searchResults.items.filter((video) => video.type == 'video')[0].url}`;
+    msg.content = `>A ${searchResults.items.filter((video) => video.type === 'video')[0].url}`;
     playVideo(msg);
 };
 

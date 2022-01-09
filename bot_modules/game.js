@@ -11,7 +11,9 @@ const getGameInfo = function (msg) {
     request.setRequestHeader('Client-ID', process.env.IGDB_CLIENT_ID);
     request.setRequestHeader('Authorization', `Bearer ${process.env.IGDB_TOKEN}`);
     request.addEventListener('load', () => {
-        if (request.responseText == '[]') {
+        if (request.status === 401) {
+            msg.channel.send('IGDB momentan nicht erreichbar');
+        } else if (request.responseText === '[]') {
             msg.channel.send('Kein Spiel gefunden');
         } else {
             let data = JSON.parse(request.responseText);

@@ -9,7 +9,7 @@ client.on('error', (error) => {
 });
 
 const increaseLevel = function (msg) {
-    if (msg.channel.type != 'dm' && !msg.author.bot) {
+    if (msg.channel.type !== 'dm' && !msg.author.bot && client.connected) {
         const redisKey = `${msg.guild.id}/${msg.author.id}`;
 
         client.get(redisKey, (err, value) => {
@@ -18,17 +18,17 @@ const increaseLevel = function (msg) {
             } else {
                 client.incr(redisKey);
                 const newValue = parseInt(value, 10) + 1;
-                if (newValue == 10) {
+                if (newValue === 10) {
                     sendLevelUpMsg(msg, 1);
-                } else if (newValue == 30) {
+                } else if (newValue === 30) {
                     sendLevelUpMsg(msg, 2);
-                } else if (newValue == 60) {
+                } else if (newValue === 60) {
                     sendLevelUpMsg(msg, 3);
-                } else if (newValue == 100) {
+                } else if (newValue === 100) {
                     sendLevelUpMsg(msg, 4);
-                } else if (newValue == 150) {
+                } else if (newValue === 150) {
                     sendLevelUpMsg(msg, 5);
-                } else if (newValue % 100 == 0) {
+                } else if (newValue % 100 === 0) {
                     const rank = newValue / 100 + 4;
                     sendLevelUpMsg(msg, rank);
                 }
@@ -42,32 +42,36 @@ const sendLevelUpMsg = function (msg, level) {
 };
 
 const getLevel = function (msg) {
-    getRanking(msg);
+    if (client.connected) {
+        getRanking(msg);
 
-    if (msg.channel.type != 'dm') {
-        const redisKey = `${msg.guild.id}/${msg.author.id}`;
+        if (msg.channel.type !== 'dm') {
+            const redisKey = `${msg.guild.id}/${msg.author.id}`;
 
-        client.get(redisKey, (err, value) => {
-            if (value < 10) {
-                sendCurrentRank(msg, 0, (10 - value));
-            } else if (value >= 10 && value < 30) {
-                sendCurrentRank(msg, 1, (30 - value));
-            } else if (value >= 30 && value < 60) {
-                sendCurrentRank(msg, 2, (60 - value));
-            } else if (value >= 60 && value < 100) {
-                sendCurrentRank(msg, 3, (100 - value));
-            } else if (value >= 100 && value < 150) {
-                sendCurrentRank(msg, 4, (150 - value));
-            } else if (value >= 150 && value < 200) {
-                sendCurrentRank(msg, 5, (200 - value));
-            } else {
-                const rank = Math.floor(value / 100) + 4;
-                const missing = 100 - value % 100;
-                sendCurrentRank(msg, rank, missing);
-            }
-        });
+            client.get(redisKey, (err, value) => {
+                if (value < 10) {
+                    sendCurrentRank(msg, 0, (10 - value));
+                } else if (value >= 10 && value < 30) {
+                    sendCurrentRank(msg, 1, (30 - value));
+                } else if (value >= 30 && value < 60) {
+                    sendCurrentRank(msg, 2, (60 - value));
+                } else if (value >= 60 && value < 100) {
+                    sendCurrentRank(msg, 3, (100 - value));
+                } else if (value >= 100 && value < 150) {
+                    sendCurrentRank(msg, 4, (150 - value));
+                } else if (value >= 150 && value < 200) {
+                    sendCurrentRank(msg, 5, (200 - value));
+                } else {
+                    const rank = Math.floor(value / 100) + 4;
+                    const missing = 100 - value % 100;
+                    sendCurrentRank(msg, rank, missing);
+                }
+            });
+        } else {
+            msg.channel.send('Dieser Befehl kann nur auf einem Server genutzt werden');
+        }
     } else {
-        msg.channel.send('Dieser Befehl kann nur auf einem Server genutzt werden');
+        msg.channel.send('Deine aktuelle Stufe kann momentan nicht abgerufen werden');
     }
 };
 
@@ -76,7 +80,7 @@ const sendCurrentRank = function (msg, level, missing) {
 };
 
 const getRanking = function (msg) {
-    if (msg.channel.type != 'dm') {
+    if (msg.channel.type !== 'dm') {
         client.keys(`${msg.guild.id}/*`, (err, keys) => {
             client.mget(keys, (err2, values) => {
                 let idx = 0;

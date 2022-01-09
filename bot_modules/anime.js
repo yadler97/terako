@@ -51,27 +51,27 @@ const getAnimeInfo = function (msg, type) {
     };
 
     const url = 'https://graphql.anilist.co';
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: JSON.stringify({
-                query,
-                variables,
-            }),
-        };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            variables,
+        }),
+    };
 
     fetch(url, options).then(handleResponse)
-                        .then(handleData)
-                        .catch(handleError);
+        .then(handleData)
+        .catch(handleError);
 
     function handleResponse(response) {
         return response.json().then((json) => {
             if (response.ok) {
-                 const animeData = json.data.Page.media[0];
-                 if (type == 'ANIME') {
+                const animeData = json.data.Page.media[0];
+                if (type === 'ANIME') {
                     const studios = animeData.studios.nodes.filter((studio) => studio.isAnimationStudio).map((studio) => studio.name).join(', ');
                     const embed = new MessageEmbed()
                         .setTitle(animeData.title.romaji)
@@ -86,7 +86,7 @@ const getAnimeInfo = function (msg, type) {
                         .addField('Average Score', animeData.averageScore ? `${animeData.averageScore}%` : 'keine Wertung vorhanden')
                         .setDescription(animeData.description.replace(/<\/?[^>]+(>|$)/g, ''));
                     msg.channel.send(embed);
-                 } else {
+                } else {
                     const embed = new MessageEmbed()
                         .setTitle(animeData.title.romaji)
                         .setImage(animeData.bannerImage)
@@ -97,7 +97,7 @@ const getAnimeInfo = function (msg, type) {
                         .addField('Average Score', animeData.averageScore ? `${animeData.averageScore}%` : 'keine Wertung vorhanden')
                         .setDescription(animeData.description.replace(/<\/?[^>]+(>|$)/g, ''));
                     msg.channel.send(embed);
-                 }
+                }
             }
 
             return response.ok ? json.data.Page.media : Promise.reject(json);
@@ -110,7 +110,7 @@ const getAnimeInfo = function (msg, type) {
 
     function handleError(error) {
         console.error(error);
-        if (type == 'ANIME') {
+        if (type === 'ANIME') {
             msg.channel.send('Kein Anime gefunden');
         } else {
             msg.channel.send('Kein Manga gefunden');
@@ -160,37 +160,37 @@ const getAnimeList = function (msg) {
     const genre = msg.content.substring(msg.toString().indexOf(' ') + 1);
 
     switch (month) {
-        case 1:
-        case 2:
-            season = 'WINTER';
-            seasonYear = year;
-            break;
-        case 3:
-        case 4:
-        case 5:
-            season = 'SPRING';
-            seasonYear = year;
-            break;
-        case 6:
-        case 7:
-        case 8:
-            season = 'SUMMER';
-            seasonYear = year;
-            break;
-        case 9:
-        case 10:
-        case 11:
-            season = 'FALL';
-            seasonYear = year;
-            break;
-        case 12:
-            season = 'WINTER';
-            seasonYear = year + 1;
-            break;
-        default:
-            season = 'WINTER';
-            seasonYear = year;
-            break;
+    case 1:
+    case 2:
+        season = 'WINTER';
+        seasonYear = year;
+        break;
+    case 3:
+    case 4:
+    case 5:
+        season = 'SPRING';
+        seasonYear = year;
+        break;
+    case 6:
+    case 7:
+    case 8:
+        season = 'SUMMER';
+        seasonYear = year;
+        break;
+    case 9:
+    case 10:
+    case 11:
+        season = 'FALL';
+        seasonYear = year;
+        break;
+    case 12:
+        season = 'WINTER';
+        seasonYear = year + 1;
+        break;
+    default:
+        season = 'WINTER';
+        seasonYear = year;
+        break;
     }
 
     const variables = {
@@ -202,27 +202,27 @@ const getAnimeList = function (msg) {
     };
 
     const url = 'https://graphql.anilist.co';
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: JSON.stringify({
-                query,
-                variables,
-            }),
-        };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            variables,
+        }),
+    };
 
     fetch(url, options).then(handleResponse)
-                        .then(handleData)
-                        .catch(handleError);
+        .then(handleData)
+        .catch(handleError);
 
     function handleResponse(response) {
         return response.json().then((json) => {
             if (response.ok) {
                 const animeData = json.data.Page.media;
-                if (animeData.length == 0) {
+                if (animeData.length === 0) {
                     msg.channel.send(`Kein Anime in Season ${season} ${seasonYear} im Genre ${genre} gefunden`);
                 } else {
                     msg.channel.send(`Aktuelle Animes in Season ${season} ${seasonYear} im Genre ${genre}:\n\n${animeData.map((anime) => `∙ ${anime.title.romaji}`).join('\n')}`);

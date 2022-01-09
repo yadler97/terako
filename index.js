@@ -47,9 +47,9 @@ client.on('message', (msg) => {
             corona.getCoronaIncidenceAndDeaths(msg);
             corona.getCoronaIncidenceWorst(msg);
             corona.getCoronaIncidenceBest(msg);
-        } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() == 'BL') {
+        } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() === 'BL') {
             corona.getCoronaIncidencePerState(msg);
-        } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() == 'IMPFUNGEN') {
+        } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() === 'IMPFUNGEN') {
             corona.getVaccinationStatus(msg);
         } else {
             corona.getCoronaIncidenceOfRegion(msg);

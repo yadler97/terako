@@ -78,7 +78,7 @@ const getCoronaIncidenceOfRegion = function (msg) {
         if (data != null) {
             const msgtext = msg.content.substring(msg.toString().indexOf(' ') + 1);
             const county = data.reverse().filter((original_data) => original_data.attributes.county.toLowerCase().includes(msgtext.toLowerCase()));
-            if (county.length == 0) {
+            if (county.length === 0) {
                 msg.channel.send('Kein Landkreis oder Stadt gefunden');
             } else {
                 msg.channel.send(`Aktueller 7-Tage-Inzidenzwert ${county[0].attributes.county.replace('SK ', 'in der Stadt ').replace('LK ', 'im Landkreis ').replace('Region H', 'in der Region H').replace('StadtRegion', 'in der StadtRegion')}: ${parseFloat(county[0].attributes.cases7_per_100k).toLocaleString(envLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`);
@@ -116,7 +116,7 @@ const getCoronaIncidencePerState = function (msg) {
 };
 
 const statePopulation = {
- 'de.bw': 11100394, 'de.by': 13124737, 'de.be': 3669491, 'de.bb': 2521893, 'de.hb': 681202, 'de.hh': 1847253, 'de.he': 6288080, 'de.mv': 1608138, 'de.ni': 7993608, 'de.nw': 17947221, 'de.rp': 4093903, 'de.sl': 986887, 'de.sn': 4071971, 'de.st': 2194782, 'de.sh': 2903773, 'de.th': 2133378, de: 83166711,
+    'de.bw': 11100394, 'de.by': 13124737, 'de.be': 3669491, 'de.bb': 2521893, 'de.hb': 681202, 'de.hh': 1847253, 'de.he': 6288080, 'de.mv': 1608138, 'de.ni': 7993608, 'de.nw': 17947221, 'de.rp': 4093903, 'de.sl': 986887, 'de.sn': 4071971, 'de.st': 2194782, 'de.sh': 2903773, 'de.th': 2133378, de: 83166711,
 };
 
 const getVaccinationStatus = function (msg) {
@@ -129,7 +129,6 @@ const getVaccinationStatus = function (msg) {
             let result = 'Aktuelle Impfquote nach Bundesländern:\n```Land                               Erstimpfungen            Vollständige Impfungen\n';
 
             for (const state of data) {
-                console.log(state.cumsum_latest, statePopulation[state.id]);
                 result += `${(state.name + Array(35).join(' ')).substring(0, 35) + (`${parseFloat((state.cumsum_latest - state.cumsum2_latest) / statePopulation[state.id] * 100).toLocaleString(envLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${Array(25).join(' ')}`).substring(0, 25) + parseFloat(state.cumsum2_latest / statePopulation[state.id] * 100).toLocaleString(envLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %\n`;
             }
 
@@ -144,40 +143,40 @@ const getVaccinationStatus = function (msg) {
 
 const getStateAbbreviation = function (state) {
     switch (state) {
-        case 'Baden-Württemberg':
-            return 'BW';
-        case 'Bayern':
-            return 'BY';
-        case 'Berlin':
-            return 'BE';
-        case 'Brandenburg':
-            return 'BB';
-        case 'Bremen':
-            return 'HB';
-        case 'Hamburg':
-            return 'HH';
-        case 'Hessen':
-            return 'HE';
-        case 'Mecklenburg-Vorpommern':
-            return 'MV';
-        case 'Niedersachsen':
-            return 'NI';
-        case 'Nordrhein-Westfalen':
-            return 'NW';
-        case 'Rheinland-Pfalz':
-            return 'RP';
-        case 'Saarland':
-            return 'SL';
-        case 'Sachsen':
-            return 'SN';
-        case 'Sachsen-Anhalt':
-            return 'ST';
-        case 'Schleswig-Holstein':
-            return 'SH';
-        case 'Thüringen':
-            return 'TH';
-        default:
-            return state;
+    case 'Baden-Württemberg':
+        return 'BW';
+    case 'Bayern':
+        return 'BY';
+    case 'Berlin':
+        return 'BE';
+    case 'Brandenburg':
+        return 'BB';
+    case 'Bremen':
+        return 'HB';
+    case 'Hamburg':
+        return 'HH';
+    case 'Hessen':
+        return 'HE';
+    case 'Mecklenburg-Vorpommern':
+        return 'MV';
+    case 'Niedersachsen':
+        return 'NI';
+    case 'Nordrhein-Westfalen':
+        return 'NW';
+    case 'Rheinland-Pfalz':
+        return 'RP';
+    case 'Saarland':
+        return 'SL';
+    case 'Sachsen':
+        return 'SN';
+    case 'Sachsen-Anhalt':
+        return 'ST';
+    case 'Schleswig-Holstein':
+        return 'SH';
+    case 'Thüringen':
+        return 'TH';
+    default:
+        return state;
     }
 };
 

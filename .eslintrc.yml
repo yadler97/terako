@@ -1,0 +1,16 @@
+env:
+  es2021: true
+  node: true
+extends:
+  - airbnb-base
+parserOptions:
+  ecmaVersion: 13
+  sourceType: module
+rules: {
+  "linebreak-style": 0,
+  "prefer-destructuring": ["error", {"object": true, "array": false}],
+  "indent": ["error", 4],
+  "guard-for-in": 0,
+  "no-restricted-syntax": 0,
+  "no-multiple-empty-lines": 0
+}

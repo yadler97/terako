@@ -9,10 +9,10 @@ const getPageSnippet = function (msg, url) {
             const data = JSON.parse(request.responseText);
             for (const key in data.query.pages) {
                 if (data.query.pages[key].hasOwnProperty('extract')) {
-                    const categoryArray = data.query.pages[key].categories.filter((item) => item.title == 'Kategorie:Begriffsklärung');
+                    const categoryArray = data.query.pages[key].categories.filter((item) => item.title === 'Kategorie:Begriffsklärung');
                     let string = data.query.pages[key].extract;
                     string = string.replace(/&amp;/g, '&').replace(/<b>/g, '**').replace(/<\/b>/g, '**');
-                    if (categoryArray.length == 0) {
+                    if (categoryArray.length === 0) {
                         if (string.split('</p>')[0].length < 200) {
                             if (string.split('</p>')[0].includes('<span>Vorlage:Infobox')) {
                                 string = string.split('</p>')[1].replace(/<\/?[^>]+(>|$)/g, '').trim();
