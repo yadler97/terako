@@ -32,7 +32,7 @@ client.on('message', (msg) => {
     if (msg.content.toUpperCase().startsWith(`${prefix}PLAY `) || msg.content.toUpperCase().startsWith(`${prefix}P `)) {
         const video = msg.content.substring(msg.toString().indexOf(' ') + 1);
         if (video.startsWith('https://www.youtube.com/watch') || (video.startsWith('https://youtu.be/'))) {
-            youtube.playVideo(msg);
+            youtube.playVideo(msg, video);
         } else {
             youtube.searchVideo(msg);
         }

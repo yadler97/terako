@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 let isReady = true;
 
-const playVideo = function (msg) {
+const playVideo = function (msg, videourl) {
     if (isReady) {
         if (msg.channel.type === 'dm') {
             msg.channel.send('Dieser Befehl kann nur im Audiokanal eines Servers genutzt werden');
@@ -13,7 +13,6 @@ const playVideo = function (msg) {
             const voiceChannel = msg.member.voice.channel;
             if (voiceChannel != null) {
                 voiceChannel.join().then((connection) => {
-                    const videourl = msg.content.substring(msg.toString().indexOf(' ') + 1);
                     const dispatcher = connection.play(ytdl(videourl, { quality: 'highestaudio' }));
                     ytdl(videourl).on('info', (info) => {
                         msg.channel.send(`**${info.videoDetails.title}** wird jetzt abgespielt`);
@@ -49,8 +48,8 @@ const playVideo = function (msg) {
 
 const searchVideo = async function (msg) {
     const searchResults = await ytsr(msg.content.substring(msg.toString().indexOf(' ') + 1));
-    msg.content = `>A ${searchResults.items.filter((video) => video.type === 'video')[0].url}`;
-    playVideo(msg);
+    const videourl = searchResults.items.filter((video) => video.type === 'video')[0].url;
+    playVideo(msg, videourl);
 };
 
 const leaveAudioChannel = function (msg) {
