@@ -7,6 +7,7 @@ const wikipedia = require('./bot_modules/wiki');
 const corona = require('./bot_modules/corona');
 const game = require('./bot_modules/game');
 const rank = require('./bot_modules/rank');
+const localization = require('./localization');
 
 const client = new Discord.Client();
 
@@ -75,16 +76,16 @@ client.on('message', (msg) => {
     }
 
     if (msg.content.toUpperCase() === `${prefix}HELP` || msg.content.toUpperCase() === `${prefix}?`) {
-        msg.channel.send(`Aktuell stehen folgende Befehle zur Verfügung:\n\
-${prefix}**A**NIME <Suchbegriff> - *Gibt Infos zu einem Anime aus*\n\
-${prefix}**A**NIME**L**IST <Genre> - *Gibt Animes eines bestimmten Genres in der aktuellen Season aus*\n\
-${prefix}**C**ORONA (<Landkreis|Stadt>|BL|IMPFUNGEN) - *Listet aktuelle Corona-Hotspots in Deutschland*\n\
-${prefix}**G**AME <Suchbegriff> - *Gibt Infos zu einem Videospiel aus*\n\
-${prefix}**L**EAVE - *Wirft den Bot aus einem Audiokanal*\n\
-${prefix}**M**ANGA <Suchbegriff> - *Gibt Infos zu einem Manga aus*\n\
-${prefix}**P**LAY <YouTube-Link>|<Suchbegriff> - *Spielt ein YouTube-Video im Audiokanal ab*\n\
-${prefix}**R**ANK - *Gibt den aktuellen Rang des Users aus*\n\
-${prefix}**W**IKI (<Begriff>) - *Definiert einen bestimmten Begriff mithilfe von Wikipedia*\
+        msg.channel.send(`${localization.translate('the_following_commands_are_available_at_the_moment')}:\n\
+${prefix}**A**NIME ${localization.translate('description_anime')}\n\
+${prefix}**A**NIME**L**IST ${localization.translate('description_animelist')}\n\
+${prefix}**C**ORONA ${localization.translate('description_corona')}\n\
+${prefix}**G**AME ${localization.translate('description_game')}\n\
+${prefix}**L**EAVE ${localization.translate('description_leave')}\n\
+${prefix}**M**ANGA ${localization.translate('description_manga')}\n\
+${prefix}**P**LAY ${localization.translate('description_play')}\n\
+${prefix}**R**ANK ${localization.translate('description_rank')}\n\
+${prefix}**W**IKI ${localization.translate('description_wiki')}\
         `);
     }
 });

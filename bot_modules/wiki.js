@@ -1,14 +1,15 @@
 const { XMLHttpRequest } = require('xmlhttprequest');
-// const { MessageEmbed } = require('discord.js');
 
-const getPageSnippet = function (msg, url) {
+const localization = require('../localization');
+
+const getPageSnippet = function getPageSnippet(msg, url) {
     const request = new XMLHttpRequest();
     request.open('GET', url);
     request.addEventListener('load', () => {
         if (request.status >= 200 && request.status < 300) {
             const data = JSON.parse(request.responseText);
             for (const key in data.query.pages) {
-                if (data.query.pages[key].hasOwnProperty('extract')) {
+                if (Object.prototype.hasOwnProperty.call(data.query.pages[key], 'extract')) {
                     const categoryArray = data.query.pages[key].categories.filter((item) => item.title === 'Kategorie:Begriffsklärung');
                     let string = data.query.pages[key].extract;
                     string = string.replace(/&amp;/g, '&').replace(/<b>/g, '**').replace(/<\/b>/g, '**');
@@ -31,20 +32,9 @@ const getPageSnippet = function (msg, url) {
 
                     const trimmedString = string.length > 1900 ? `${string.substring(0, 1900 - 3)}...` : string;
                     const pageTitle = encodeURI(data.query.pages[key].title);
-                    msg.channel.send(`${trimmedString}\n\nMehr unter: *${process.env.MEDIAWIKI_URL}wiki/${pageTitle}*`);
-
-                    /* const embed = new MessageEmbed()
-                            .setTitle(data.query.pages[key].title)
-                            .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Coat_of_arms_of_Berlin.svg/623px-Coat_of_arms_of_Berlin.svg.png")
-                            .setURL(url + "/wiki/" + pageTitle)
-                            .setColor(0xff0000)
-                            .setDescription(trimmedString)
-                            .addField("Einwohner", "3.669.491 (31. Dezember 2019)")
-                            .addField("Fläche", "891,68 km² (Rang: 14. als Land, 1. als Gemeinde)")
-                            .addField("Kfz-Kennzeichen", "B")
-                    msg.channel.send(embed); */
+                    msg.channel.send(`${trimmedString}\n\n${localization.translate('more_here')}: *${process.env.MEDIAWIKI_URL}wiki/${pageTitle}*`);
                 } else {
-                    msg.channel.send('Kein Wikipedia-Eintrag gefunden');
+                    msg.channel.send(localization.translate('no_wikipedia_article_found'));
                 }
             }
         } else {
@@ -54,12 +44,12 @@ const getPageSnippet = function (msg, url) {
     request.send();
 };
 
-const getRandomArticle = function (msg) {
+const getRandomArticle = function getRandomArticle(msg) {
     const url = `${process.env.MEDIAWIKI_URL}w/api.php?%20format=json&action=query&prop=categories|extracts&generator=random&grnnamespace=0`;
     getPageSnippet(msg, url);
 };
 
-const getArticle = function (msg) {
+const getArticle = function getArticle(msg) {
     let msgtext = msg.toString().substring(msg.toString().indexOf(' ') + 1);
     msgtext = encodeURI(msgtext);
     const re = /[+]/g;

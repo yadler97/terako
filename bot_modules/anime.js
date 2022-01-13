@@ -2,7 +2,9 @@ const fetch = require('node-fetch');
 
 const { MessageEmbed } = require('discord.js');
 
-const getAnimeInfo = function (msg, type) {
+const localization = require('../localization');
+
+const getAnimeInfo = function getAnimeInfo(msg, type) {
     const query = `
     query ($id: Int, $page: Int, $perPage: Int, $search: String, $type: MediaType) {
         Page (page: $page, perPage: $perPage) {
@@ -63,8 +65,8 @@ const getAnimeInfo = function (msg, type) {
         }),
     };
 
-    fetch(url, options).then(handleResponse)
-        .then(handleData)
+    fetch(url, options)
+        .then(handleResponse)
         .catch(handleError);
 
     function handleResponse(response) {
@@ -79,11 +81,11 @@ const getAnimeInfo = function (msg, type) {
                         .setThumbnail(animeData.coverImage.large)
                         .setURL(animeData.siteUrl)
                         .setColor(0x9932cc)
-                        .addField('Episodes', animeData.episodes)
-                        .addField('Genres', animeData.genres.join(', '))
-                        .addField('Season', animeData.season && animeData.seasonYear ? `${animeData.season} ${animeData.seasonYear}` : 'unbekannt')
-                        .addField('Studios', studios || 'unbekannt')
-                        .addField('Average Score', animeData.averageScore ? `${animeData.averageScore}%` : 'keine Wertung vorhanden')
+                        .addField(localization.translate('episodes'), animeData.episodes)
+                        .addField(localization.translate('genres'), animeData.genres.join(', '))
+                        .addField(localization.translate('season'), animeData.season && animeData.seasonYear ? `${animeData.season} ${animeData.seasonYear}` : localization.translate('unknown_season'))
+                        .addField(localization.translate('studios'), studios || localization.translate('unknown_studio'))
+                        .addField(localization.translate('average_score'), animeData.averageScore ? `${animeData.averageScore}%` : localization.translate('no_rating_found'))
                         .setDescription(animeData.description.replace(/<\/?[^>]+(>|$)/g, ''));
                     msg.channel.send(embed);
                 } else {
@@ -93,8 +95,8 @@ const getAnimeInfo = function (msg, type) {
                         .setThumbnail(animeData.coverImage.large)
                         .setURL(animeData.siteUrl)
                         .setColor(0xff7f00)
-                        .addField('Genres', animeData.genres.join(', '))
-                        .addField('Average Score', animeData.averageScore ? `${animeData.averageScore}%` : 'keine Wertung vorhanden')
+                        .addField(localization.translate('genres'), animeData.genres.join(', '))
+                        .addField(localization.translate('average_score'), animeData.averageScore ? `${animeData.averageScore}%` : localization.translate('no_rating_found'))
                         .setDescription(animeData.description.replace(/<\/?[^>]+(>|$)/g, ''));
                     msg.channel.send(embed);
                 }
@@ -104,21 +106,17 @@ const getAnimeInfo = function (msg, type) {
         });
     }
 
-    function handleData(data) {
-        console.log(data);
-    }
-
     function handleError(error) {
         console.error(error);
         if (type === 'ANIME') {
-            msg.channel.send('Kein Anime gefunden');
+            msg.channel.send(localization.translate('no_anime_found'));
         } else {
-            msg.channel.send('Kein Manga gefunden');
+            msg.channel.send(localization.translate('no_manga_found'));
         }
     }
 };
 
-const getAnimeList = function (msg) {
+const getAnimeList = function getAnimeList(msg) {
     const query = `
     query ($id: Int, $page: Int, $perPage: Int, $season: MediaSeason, $seasonYear: Int, $genre: [String]) {
         Page (page: $page, perPage: $perPage) {
@@ -214,8 +212,8 @@ const getAnimeList = function (msg) {
         }),
     };
 
-    fetch(url, options).then(handleResponse)
-        .then(handleData)
+    fetch(url, options)
+        .then(handleResponse)
         .catch(handleError);
 
     function handleResponse(response) {
@@ -223,9 +221,9 @@ const getAnimeList = function (msg) {
             if (response.ok) {
                 const animeData = json.data.Page.media;
                 if (animeData.length === 0) {
-                    msg.channel.send(`Kein Anime in Season ${season} ${seasonYear} im Genre ${genre} gefunden`);
+                    msg.channel.send(localization.translate('no_anime_found_in_season_with_genre', { season, seasonYear, genre }));
                 } else {
-                    msg.channel.send(`Aktuelle Animes in Season ${season} ${seasonYear} im Genre ${genre}:\n\n${animeData.map((anime) => `∙ ${anime.title.romaji}`).join('\n')}`);
+                    msg.channel.send(`${localization.translate('current_animes_in_season', { season, seasonYear, genre })}:\n\n${animeData.map((anime) => `∙ ${anime.title.romaji}`).join('\n')}`);
                 }
             }
 
@@ -233,13 +231,9 @@ const getAnimeList = function (msg) {
         });
     }
 
-    function handleData(data) {
-        console.log(data);
-    }
-
     function handleError(error) {
         console.error(error);
-        msg.channel.send('Kein Anime gefunden');
+        msg.channel.send(localization.translate('no_anime_found'));
     }
 };
 

@@ -1,7 +1,10 @@
 {
   "name": "terako",
-  "version": "1.0.32",
+  "version": "2.0.0",
   "description": "The brand new Terako Bot",
+  "engines": {
+    "node": "14.x"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -16,11 +19,12 @@
     "discord.js-commando": "^0.10.0",
     "dotenv": "^8.6.0",
     "ffmpeg-static": "^4.4.1",
-    "node-fetch": "^2.6.6",
+    "i18next": "^21.6.10",
+    "node-fetch": "^2.6.7",
     "redis": "^3.1.2",
     "string-similarity": "^4.0.4",
     "xmlhttprequest": "^1.8.0",
-    "ytdl-core": "^4.9.2",
+    "ytdl-core": "^4.10.1",
     "ytsr": "^3.5.3"
   },
   "devDependencies": {

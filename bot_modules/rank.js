@@ -1,5 +1,7 @@
-const redis = require("redis");
+const redis = require('redis');
 const { MessageEmbed } = require('discord.js');
+
+const localization = require('../localization');
 
 const client = redis.createClient(process.env.REDIS_URL);
 
@@ -8,7 +10,7 @@ client.on('error', (error) => {
     client.quit();
 });
 
-const increaseLevel = function (msg) {
+const increaseLevel = function increaseLevel(msg) {
     if (msg.channel.type !== 'dm' && !msg.author.bot && client.connected) {
         const redisKey = `${msg.guild.id}/${msg.author.id}`;
 
@@ -37,11 +39,12 @@ const increaseLevel = function (msg) {
     }
 };
 
-const sendLevelUpMsg = function (msg, level) {
-    msg.channel.send(`Herzlichen Glückwunsch, <@!${msg.author.id}>, du hast Stufe ${level} erreicht!`);
+const sendLevelUpMsg = function sendLevelUpMsg(msg, level) {
+    const authorId = msg.author.id;
+    msg.channel.send(localization.translate('congratulations_you_have_reached_the_next_rank', { authorId, level }));
 };
 
-const getLevel = function (msg) {
+const getLevel = function getLevel(msg) {
     if (client.connected) {
         getRanking(msg);
 
@@ -68,18 +71,18 @@ const getLevel = function (msg) {
                 }
             });
         } else {
-            msg.channel.send('Dieser Befehl kann nur auf einem Server genutzt werden');
+            msg.channel.send(localization.translate('this_command_can_only_be_used_on_a_server'));
         }
     } else {
-        msg.channel.send('Deine aktuelle Stufe kann momentan nicht abgerufen werden');
+        msg.channel.send(localization.translate('your_current_rank_can_not_be_accessed_at_the_moment'));
     }
 };
 
-const sendCurrentRank = function (msg, level, missing) {
-    msg.channel.send(`Deine aktuelle Stufe ist ${level}. Dir fehlen noch ${missing} Erfahrungspunkte bis zur nächsten Stufe.`);
+const sendCurrentRank = function sendCurrentRank(msg, level, missing) {
+    msg.channel.send(localization.translate('your_current_rank_is', { level, missing }));
 };
 
-const getRanking = function (msg) {
+const getRanking = function getRanking(msg) {
     if (msg.channel.type !== 'dm') {
         client.keys(`${msg.guild.id}/*`, (err, keys) => {
             client.mget(keys, (err2, values) => {
@@ -93,7 +96,7 @@ const getRanking = function (msg) {
                 ranking.sort((a, b) => b.score - a.score);
 
                 const embed = new MessageEmbed();
-                embed.setTitle('Current Ranking')
+                embed.setTitle(localization.translate('current_ranking'))
                     .setColor(0xffd700)
                     .setDescription(`:first_place: ${ranking.length >= 1 ? `${ranking[0].username} (XP: ${ranking[0].score})` : '-'}\n\n:second_place: ${ranking.length >= 2 ? ranking[1].username : '-'}\n\n:third_place: ${ranking.length >= 3 ? ranking[2].username : '-'}`);
                 msg.channel.send(embed);

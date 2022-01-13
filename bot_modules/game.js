@@ -3,7 +3,9 @@ const stringSimilarity = require('string-similarity');
 
 const { MessageEmbed } = require('discord.js');
 
-const getGameInfo = function (msg) {
+const localization = require('../localization');
+
+const getGameInfo = function getGameInfo(msg) {
     const msgtext = msg.content.substring(msg.toString().indexOf(' ') + 1);
 
     const request = new XMLHttpRequest();
@@ -12,9 +14,9 @@ const getGameInfo = function (msg) {
     request.setRequestHeader('Authorization', `Bearer ${process.env.IGDB_TOKEN}`);
     request.addEventListener('load', () => {
         if (request.status === 401) {
-            msg.channel.send('IGDB momentan nicht erreichbar');
+            msg.channel.send(localization.translate('igdb_not_reachable_at_the_moment'));
         } else if (request.responseText === '[]') {
-            msg.channel.send('Kein Spiel gefunden');
+            msg.channel.send(localization.translate('no_game_found'));
         } else {
             let data = JSON.parse(request.responseText);
             const games = data.map((game) => game.name);
@@ -24,8 +26,8 @@ const getGameInfo = function (msg) {
 
             const platforms = data.platforms.map((platform) => platform.name).join(', ');
             const genres = data.genres.map((genre) => genre.name).join(', ');
-            const developers = data.involved_companies ? data.involved_companies.filter((studio) => studio.developer).map((studio) => studio.company.name).join(', ') : 'unbekannt';
-            const publishers = data.involved_companies ? data.involved_companies.filter((studio) => studio.publisher).map((studio) => studio.company.name).join(', ') : 'unbekannt';
+            const developers = data.involved_companies ? data.involved_companies.filter((studio) => studio.developer).map((studio) => studio.company.name).join(', ') : localization.translate('unknown_dev');
+            const publishers = data.involved_companies ? data.involved_companies.filter((studio) => studio.publisher).map((studio) => studio.company.name).join(', ') : localization.translate('unknown_dev');
             const platformFamilies = data.platforms.map((platform) => platform.platform_family);
 
             let color = 0x000000;
@@ -43,12 +45,12 @@ const getGameInfo = function (msg) {
                 .setThumbnail(data.cover ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${data.cover.image_id}.jpg` : null)
                 .setURL(data.url)
                 .setColor(color)
-                .addField('Platforms', platforms)
-                .addField('Release Date', data.release_dates[0].human)
-                .addField('Genres', genres)
-                .addField('Developer', developers)
-                .addField('Publisher', publishers)
-                .addField('Rating', data.aggregated_rating ? `${data.aggregated_rating.toFixed(0)}%` : 'keine Wertung vorhanden')
+                .addField(localization.translate('platforms'), platforms)
+                .addField(localization.translate('release_date'), data.release_dates[0].human)
+                .addField(localization.translate('genres'), genres)
+                .addField(localization.translate('developer'), developers)
+                .addField(localization.translate('publisher'), publishers)
+                .addField(localization.translate('rating'), data.aggregated_rating ? `${data.aggregated_rating.toFixed(0)}%` : localization.translate('no_rating_found'))
                 .setDescription(data.summary);
             msg.channel.send(embed);
         }
