@@ -62,5 +62,7 @@
     "description_manga": "<search term> - *Prints information about a manga*",
     "description_play": "<YouTube link>|<search term> - *Plays a YouTube video in the voice channel*",
     "description_rank": "- *Prints the current rank of the user*",
-    "description_wiki": "(<term>) - *Defines a certain term with the help of Wikipedia*"
+    "description_wiki": "(<term>) - *Defines a certain term with the help of Wikipedia*",
+
+    "this_command_requires_an_argument": "This command requires an argument"
 }

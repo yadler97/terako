@@ -66,7 +66,7 @@ ${(`${data[4].attributes.county.replace('SK', localization.translate('city_of'))
     request.send();
 };
 
-const getCoronaIncidenceOfRegion = function getCoronaIncidenceOfRegion(msg) {
+const getCoronaIncidenceOfRegion = function getCoronaIncidenceOfRegion(msg, regionName) {
     const request = new XMLHttpRequest();
     request.open('GET', 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json');
     request.addEventListener('load', () => {
@@ -74,8 +74,7 @@ const getCoronaIncidenceOfRegion = function getCoronaIncidenceOfRegion(msg) {
         data = data.features;
 
         if (data != null) {
-            const msgtext = msg.content.substring(msg.toString().indexOf(' ') + 1);
-            const county = data.reverse().filter((originalData) => originalData.attributes.county.toLowerCase().includes(msgtext.toLowerCase()));
+            const county = data.reverse().filter((originalData) => originalData.attributes.county.toLowerCase().includes(regionName.toLowerCase()));
             if (county.length === 0) {
                 msg.channel.send(localization.translate('no_county_or_city_found'));
             } else {
@@ -127,7 +126,7 @@ const getVaccinationStatus = function getVaccinationStatus(msg) {
             let result = `${localization.translate('current_vaccination_rate_per_state')}:\n\`\`\`${localization.translate('state')}                               ${localization.translate('single_vaccinated')}            ${localization.translate('fully_vaccinatied')}\n`;
 
             for (const state of data) {
-                result += `${(state.name + Array(35).join(' ')).substring(0, 35) + (`${parseFloat((state.cumsum_latest - state.cumsum2_latest) / statePopulation[state.id] * 100).toLocaleString(envLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${Array(25).join(' ')}`).substring(0, 25) + parseFloat(state.cumsum2_latest / statePopulation[state.id] * 100).toLocaleString(envLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %\n`;
+                result += `${(state.name + Array(35).join(' ')).substring(0, 35) + (`${parseFloat(((state.cumsum_latest - state.cumsum2_latest) / statePopulation[state.id]) * 100).toLocaleString(envLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %${Array(25).join(' ')}`).substring(0, 25) + parseFloat((state.cumsum2_latest / statePopulation[state.id]) * 100).toLocaleString(envLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %\n`;
             }
 
             result += '```';

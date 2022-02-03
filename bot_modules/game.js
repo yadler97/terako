@@ -5,9 +5,7 @@ const { MessageEmbed } = require('discord.js');
 
 const localization = require('../localization');
 
-const getGameInfo = function getGameInfo(msg) {
-    const msgtext = msg.content.substring(msg.toString().indexOf(' ') + 1);
-
+const getGameInfo = function getGameInfo(msg, searchTerm) {
     const request = new XMLHttpRequest();
     request.open('POST', 'https://api.igdb.com/v4/games');
     request.setRequestHeader('Client-ID', process.env.IGDB_CLIENT_ID);
@@ -21,7 +19,7 @@ const getGameInfo = function getGameInfo(msg) {
             let data = JSON.parse(request.responseText);
             const games = data.map((game) => game.name);
 
-            const matches = stringSimilarity.findBestMatch(msgtext, games);
+            const matches = stringSimilarity.findBestMatch(searchTerm, games);
             data = data[matches.bestMatchIndex];
 
             const platforms = data.platforms.map((platform) => platform.name).join(', ');
@@ -55,7 +53,7 @@ const getGameInfo = function getGameInfo(msg) {
             msg.channel.send(embed);
         }
     });
-    request.send(`fields name,release_dates.human,platforms.name,platforms.platform_family,summary,url,genres.name,cover.image_id,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,aggregated_rating,screenshots.image_id; limit 10; search "${msgtext}";`);
+    request.send(`fields name,release_dates.human,platforms.name,platforms.platform_family,summary,url,genres.name,cover.image_id,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,aggregated_rating,screenshots.image_id; limit 10; search "${searchTerm}";`);
 };
 
 module.exports = {

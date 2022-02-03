@@ -62,5 +62,7 @@
     "description_manga": "<Suchbegriff> - *Gibt Infos zu einem Manga aus*",
     "description_play": "<YouTube-Link>|<Suchbegriff> - *Spielt ein YouTube-Video im Audiokanal ab*",
     "description_rank": "- *Gibt den aktuellen Rang des Users aus*",
-    "description_wiki": "(<Begriff>) - *Definiert einen bestimmten Begriff mithilfe von Wikipedia*"
+    "description_wiki": "(<Begriff>) - *Definiert einen bestimmten Begriff mithilfe von Wikipedia*",
+
+    "this_command_requires_an_argument": "Dieser Befehl benötigt ein Argument"
 }

@@ -66,7 +66,7 @@ const getLevel = function getLevel(msg) {
                     sendCurrentRank(msg, 5, (200 - value));
                 } else {
                     const rank = Math.floor(value / 100) + 4;
-                    const missing = 100 - value % 100;
+                    const missing = 100 - (value % 100);
                     sendCurrentRank(msg, rank, missing);
                 }
             });

@@ -49,12 +49,11 @@ const getRandomArticle = function getRandomArticle(msg) {
     getPageSnippet(msg, url);
 };
 
-const getArticle = function getArticle(msg) {
-    let msgtext = msg.toString().substring(msg.toString().indexOf(' ') + 1);
-    msgtext = encodeURI(msgtext);
+const getArticle = function getArticle(msg, searchTerm) {
+    let urlSearchTerm = encodeURI(searchTerm);
     const re = /[+]/g;
-    msgtext = msgtext.replace(re, '%2B').replace('&', '%26');
-    const url = `${process.env.MEDIAWIKI_URL}w/api.php?action=query&format=json&prop=categories|extracts&redirects=true&titles=${msgtext}`;
+    urlSearchTerm = urlSearchTerm.replace(re, '%2B').replace('&', '%26');
+    const url = `${process.env.MEDIAWIKI_URL}w/api.php?action=query&format=json&prop=categories|extracts&redirects=true&titles=${urlSearchTerm}`;
     getPageSnippet(msg, url);
 };
 

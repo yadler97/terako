@@ -48,13 +48,13 @@ const playVideo = function playVideo(msg, videourl) {
     }
 };
 
-const searchVideo = async function searchVideo(msg) {
+const searchVideo = async function searchVideo(msg, searchTerm) {
     if (msg.channel.type === 'dm') {
         msg.channel.send(localization.translate('this_command_can_only_be_used_in_voice_channel'));
     } else {
         const voiceChannel = msg.member.voice.channel;
         if (voiceChannel != null) {
-            const searchResults = await ytsr(msg.content.substring(msg.toString().indexOf(' ') + 1));
+            const searchResults = await ytsr(searchTerm);
             const videourl = searchResults.items.filter((video) => video.type === 'video')[0].url;
             playVideo(msg, videourl);
         } else {

@@ -18,65 +18,89 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg) => {
-    if (msg.content.toUpperCase().startsWith(`${prefix}ANIME `) || msg.content.toUpperCase().startsWith(`${prefix}A `)) {
-        anime.getAnimeInfo(msg, 'ANIME');
-    }
+    if (!msg.author.bot) {
+        let [command, ...message] = msg.content.split(' ');
+        command = command.toUpperCase();
+        message = message.join(' ');
 
-    if (msg.content.toUpperCase().startsWith(`${prefix}MANGA `) || msg.content.toUpperCase().startsWith(`${prefix}M `)) {
-        anime.getAnimeInfo(msg, 'MANGA');
-    }
-
-    if (msg.content.toUpperCase().startsWith(`${prefix}ANIMELIST `) || msg.content.toUpperCase().startsWith(`${prefix}AL `)) {
-        anime.getAnimeList(msg);
-    }
-
-    if (msg.content.toUpperCase().startsWith(`${prefix}PLAY `) || msg.content.toUpperCase().startsWith(`${prefix}P `)) {
-        const video = msg.content.substring(msg.toString().indexOf(' ') + 1);
-        if (video.startsWith('https://www.youtube.com/watch') || (video.startsWith('https://youtu.be/'))) {
-            youtube.playVideo(msg, video);
-        } else {
-            youtube.searchVideo(msg);
+        if (command === `${prefix}ANIME` || command === `${prefix}A`) {
+            if (message !== '') {
+                anime.getAnimeInfo(msg, message, 'ANIME');
+            } else {
+                msg.channel.send(localization.translate('this_command_requires_an_argument'));
+            }
         }
-    }
 
-    if (msg.content.toUpperCase() === `${prefix}LEAVE` || msg.content.toUpperCase() === `${prefix}L`) {
-        youtube.leaveAudioChannel(msg);
-    }
-
-    if (msg.content.toUpperCase() === `${prefix}CORONA` || msg.content.toUpperCase() === `${prefix}C` || msg.content.toUpperCase().startsWith(`${prefix}CORONA `) || msg.content.toUpperCase().startsWith(`${prefix}C `)) {
-        if (msg.content.toUpperCase() === `${prefix}CORONA` || msg.content.toUpperCase() === `${prefix}C`) {
-            corona.getCoronaIncidenceAndDeaths(msg);
-            corona.getCoronaIncidenceWorst(msg);
-            corona.getCoronaIncidenceBest(msg);
-        } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() === 'BL') {
-            corona.getCoronaIncidencePerState(msg);
-        } else if (msg.content.substring(msg.toString().indexOf(' ') + 1).toUpperCase() === 'IMPFUNGEN') {
-            corona.getVaccinationStatus(msg);
-        } else {
-            corona.getCoronaIncidenceOfRegion(msg);
+        if (command === `${prefix}MANGA` || command === `${prefix}M`) {
+            if (message !== '') {
+                anime.getAnimeInfo(msg, message, 'MANGA');
+            } else {
+                msg.channel.send(localization.translate('this_command_requires_an_argument'));
+            }
         }
-    }
 
-    if (msg.content.toUpperCase() === `${prefix}WIKI` || msg.content.toUpperCase() === `${prefix}W` || msg.content.toUpperCase().startsWith(`${prefix}WIKI `) || msg.content.toUpperCase().startsWith(`${prefix}W `)) {
-        if (msg.content.toUpperCase() === `${prefix}WIKI` || msg.content.toUpperCase() === `${prefix}W`) {
-            wikipedia.getRandomArticle(msg);
-        } else {
-            wikipedia.getArticle(msg);
+        if (command === `${prefix}ANIMELIST` || command === `${prefix}AL`) {
+            if (message !== '') {
+                anime.getAnimeList(msg, message);
+            } else {
+                msg.channel.send(localization.translate('this_command_requires_an_argument'));
+            }
         }
-    }
 
-    if (msg.content.toUpperCase().startsWith(`${prefix}GAME `) || msg.content.toUpperCase().startsWith(`${prefix}G `)) {
-        game.getGameInfo(msg);
-    }
+        if (command === `${prefix}PLAY` || command === `${prefix}P`) {
+            if (message !== '') {
+                if (message.startsWith('https://www.youtube.com/watch') || (message.startsWith('https://youtu.be/'))) {
+                    youtube.playVideo(msg, message);
+                } else {
+                    youtube.searchVideo(msg, message);
+                }
+            } else {
+                msg.channel.send(localization.translate('this_command_requires_an_argument'));
+            }
+        }
 
-    if (msg.content.toUpperCase() === `${prefix}RANK` || msg.content.toUpperCase() === `${prefix}R`) {
-        rank.getLevel(msg);
-    } else {
-        rank.increaseLevel(msg);
-    }
+        if ((command === `${prefix}LEAVE` || command === `${prefix}L`) && message === '') {
+            youtube.leaveAudioChannel(msg);
+        }
 
-    if (msg.content.toUpperCase() === `${prefix}HELP` || msg.content.toUpperCase() === `${prefix}?`) {
-        msg.channel.send(`${localization.translate('the_following_commands_are_available_at_the_moment')}:\n\
+        if (command === `${prefix}CORONA` || command === `${prefix}C`) {
+            if (message === '') {
+                corona.getCoronaIncidenceAndDeaths(msg);
+                corona.getCoronaIncidenceWorst(msg);
+                corona.getCoronaIncidenceBest(msg);
+            } else if (message === 'BL') {
+                corona.getCoronaIncidencePerState(msg);
+            } else if (message === 'IMPFUNGEN') {
+                corona.getVaccinationStatus(msg);
+            } else {
+                corona.getCoronaIncidenceOfRegion(msg, message);
+            }
+        }
+
+        if (command === `${prefix}WIKI` || command === `${prefix}W`) {
+            if (message === '') {
+                wikipedia.getRandomArticle(msg);
+            } else {
+                wikipedia.getArticle(msg, message);
+            }
+        }
+
+        if (command === `${prefix}GAME` || command === `${prefix}G`) {
+            if (message !== '') {
+                game.getGameInfo(msg, message);
+            } else {
+                msg.channel.send(localization.translate('this_command_requires_an_argument'));
+            }
+        }
+
+        if ((command === `${prefix}RANK` || command === `${prefix}R`) && message === '') {
+            rank.getLevel(msg);
+        } else {
+            rank.increaseLevel(msg);
+        }
+
+        if (command === `${prefix}HELP` || command === `${prefix}?`) {
+            msg.channel.send(`${localization.translate('the_following_commands_are_available_at_the_moment')}:\n\
 ${prefix}**A**NIME ${localization.translate('description_anime')}\n\
 ${prefix}**A**NIME**L**IST ${localization.translate('description_animelist')}\n\
 ${prefix}**C**ORONA ${localization.translate('description_corona')}\n\
@@ -86,7 +110,8 @@ ${prefix}**M**ANGA ${localization.translate('description_manga')}\n\
 ${prefix}**P**LAY ${localization.translate('description_play')}\n\
 ${prefix}**R**ANK ${localization.translate('description_rank')}\n\
 ${prefix}**W**IKI ${localization.translate('description_wiki')}\
-        `);
+            `);
+        }
     }
 });
 

@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 const localization = require('../localization');
 
-const getAnimeInfo = function getAnimeInfo(msg, type) {
+const getAnimeInfo = function getAnimeInfo(msg, searchTerm, type) {
     const query = `
     query ($id: Int, $page: Int, $perPage: Int, $search: String, $type: MediaType) {
         Page (page: $page, perPage: $perPage) {
@@ -46,7 +46,7 @@ const getAnimeInfo = function getAnimeInfo(msg, type) {
     `;
 
     const variables = {
-        search: msg.content.substring(msg.toString().indexOf(' ') + 1),
+        search: searchTerm,
         page: 1,
         perPage: 1,
         type,
@@ -116,7 +116,7 @@ const getAnimeInfo = function getAnimeInfo(msg, type) {
     }
 };
 
-const getAnimeList = function getAnimeList(msg) {
+const getAnimeList = function getAnimeList(msg, genre) {
     const query = `
     query ($id: Int, $page: Int, $perPage: Int, $season: MediaSeason, $seasonYear: Int, $genre: [String]) {
         Page (page: $page, perPage: $perPage) {
@@ -155,7 +155,6 @@ const getAnimeList = function getAnimeList(msg) {
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
     let season; let seasonYear;
-    const genre = msg.content.substring(msg.toString().indexOf(' ') + 1);
 
     switch (month) {
     case 1:
