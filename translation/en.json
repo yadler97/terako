@@ -37,7 +37,7 @@
     "publisher": "Publisher",
     "rating": "Rating",
     "no_rating_found": "no rating found",
-    "congratulations_you_have_reached_the_next_rank": "Congratulations, <@!{{user_id}}>, you have reached rank {{level}}!",
+    "congratulations_you_have_reached_the_next_rank": "Congratulations, {{- author}}, you have reached rank {{level}}!",
     "this_command_can_only_be_used_on_a_server": "This command can only be used on a server",
     "your_current_rank_can_not_be_accessed_at_the_moment": "Your current rank cannot be accessed at the moment",
     "your_current_rank_is": "Your current rank is {{level}}. You are missing {{missing}} experience points for the next rank.",

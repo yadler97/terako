@@ -40,8 +40,8 @@ const increaseLevel = function increaseLevel(msg) {
 };
 
 const sendLevelUpMsg = function sendLevelUpMsg(msg, level) {
-    const authorId = msg.author.id;
-    msg.channel.send(localization.translate('congratulations_you_have_reached_the_next_rank', { authorId, level }));
+    const author = `<@!${msg.author.id}>`;
+    msg.channel.send(localization.translate('congratulations_you_have_reached_the_next_rank', { author, level }));
 };
 
 const getLevel = function getLevel(msg) {
