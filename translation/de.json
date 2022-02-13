@@ -53,15 +53,21 @@
     "no_anime_found_in_season_with_genre": "Kein Anime in Season {{season}} {{seasonYear}} im Genre {{genre}} gefunden",
     "current_animes_in_season": "Aktuelle Animes in Season {{season}} {{seasonYear}} im Genre {{genre}}",
 
+    "language_not_supported": "Sprache wird nicht unterstützt",
+    "no_text_to_translate_entered": "Kein Text zum Übersetzen übergeben",
+    "no_image_found": "Kein Bild gefunden",
+
     "the_following_commands_are_available_at_the_moment": "Aktuell stehen folgende Befehle zur Verfügung",
     "description_anime": "<Suchbegriff> - *Gibt Infos zu einem Anime aus*",
     "description_animelist": "<Genre> - *Gibt Animes eines bestimmten Genres in der aktuellen Season aus*",
     "description_corona": "(<Landkreis|Stadt>|BL|IMPFUNGEN) - *Gibt aktuelle Corona-Zahlen zu Deutschland aus*",
     "description_game": "<Suchbegriff> - *Gibt Infos zu einem Videospiel aus*",
+    "description_image": "<Suchbegriff> - *Sucht ein Bild für einen bestimmten Suchbegriff*",
     "description_leave": "- *Wirft den Bot aus einem Audiokanal*",
     "description_manga": "<Suchbegriff> - *Gibt Infos zu einem Manga aus*",
     "description_play": "<YouTube-Link>|<Suchbegriff> - *Spielt ein YouTube-Video im Audiokanal ab*",
     "description_rank": "- *Gibt den aktuellen Rang des Users aus*",
+    "description_translate": "<Sprachkürzel> <Text> - *Übersetzt einen Text in eine bestimmte Sprache*",
     "description_wiki": "(<Begriff>) - *Definiert einen bestimmten Begriff mithilfe von Wikipedia*",
 
     "this_command_requires_an_argument": "Dieser Befehl benötigt ein Argument"

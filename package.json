@@ -1,6 +1,6 @@
 {
   "name": "terako",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "The brand new Terako Bot",
   "engines": {
     "node": "14.x"
@@ -15,20 +15,21 @@
   "dependencies": {
     "@discordjs/node-pre-gyp": "^0.1.0",
     "@discordjs/opus": "^0.3.3",
+    "bing-translate-api": "^2.2.1",
     "discord.js": "^12.5.3",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^8.6.0",
     "ffmpeg-static": "^4.4.1",
-    "i18next": "^21.6.10",
+    "i18next": "^21.6.11",
     "node-fetch": "^2.6.7",
     "redis": "^3.1.2",
     "string-similarity": "^4.0.4",
     "xmlhttprequest": "^1.8.0",
     "ytdl-core": "^4.10.1",
-    "ytsr": "^3.5.3"
+    "ytsr": "^3.6.0"
   },
   "devDependencies": {
-    "eslint": "^8.6.0",
+    "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4"
   }

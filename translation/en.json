@@ -52,16 +52,22 @@
     "no_manga_found": "No manga found",
     "no_anime_found_in_season_with_genre": "No anime found in season {{season}} {{seasonYear}} with genre {{genre}}",
     "current_animes_in_season": "Current animes in season {{season}} {{seasonYear}} with genre {{genre}}",
-    
+
+    "language_not_supported": "Language not supported",
+    "no_text_to_translate_entered": "No text to translate entered",
+    "no_image_found": "No image found",
+
     "the_following_commands_are_available_at_the_moment": "The following commands are available at the moment",
     "description_anime": "<search term> - *Prints information about an anime*",
     "description_animelist": "<genre> - *Prints a list of animes of a certain genre in the current season*",
     "description_corona": "(<county|city>|BL|IMPFUNGEN) - *Prints current Corona numbers for Germany*",
     "description_game": "<search term> - *Prints information about a videogame*",
+    "description_image": "<search term> - *Searches for an image for a given searchterm*",
     "description_leave": "- *Kicks the bot out of the voice channel*",
     "description_manga": "<search term> - *Prints information about a manga*",
     "description_play": "<YouTube link>|<search term> - *Plays a YouTube video in the voice channel*",
     "description_rank": "- *Prints the current rank of the user*",
+    "description_translate": "<language abbreviation> <text> - *Translates a text into a given language*",
     "description_wiki": "(<term>) - *Defines a certain term with the help of Wikipedia*",
 
     "this_command_requires_an_argument": "This command requires an argument"

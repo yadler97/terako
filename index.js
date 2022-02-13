@@ -7,6 +7,8 @@ const wikipedia = require('./bot_modules/wiki');
 const corona = require('./bot_modules/corona');
 const game = require('./bot_modules/game');
 const rank = require('./bot_modules/rank');
+const translator = require('./bot_modules/translator');
+const imagesearch = require('./bot_modules/imagesearch');
 const localization = require('./localization');
 
 const client = new Discord.Client();
@@ -99,16 +101,38 @@ client.on('message', (msg) => {
             rank.increaseLevel(msg);
         }
 
+        if (command === `${prefix}TRANSLATE` || command === `${prefix}T`) {
+            if (message !== '') {
+                let [lang, ...text] = message.split(' ');
+                lang = lang.toLowerCase();
+                text = text.join(' ');
+                translator.translateText(msg, text, lang);
+            } else {
+                msg.channel.send(localization.translate('this_command_requires_an_argument'));
+            }
+        }
+
+        if (command === `${prefix}IMAGE` || command === `${prefix}I`) {
+            if (message !== '') {
+                imagesearch.searchImage(msg, message);
+            } else {
+                msg.channel.send(localization.translate('this_command_requires_an_argument'));
+            }
+        }
+
         if (command === `${prefix}HELP` || command === `${prefix}?`) {
             msg.channel.send(`${localization.translate('the_following_commands_are_available_at_the_moment')}:\n\
+
 ${prefix}**A**NIME ${localization.translate('description_anime')}\n\
 ${prefix}**A**NIME**L**IST ${localization.translate('description_animelist')}\n\
 ${prefix}**C**ORONA ${localization.translate('description_corona')}\n\
 ${prefix}**G**AME ${localization.translate('description_game')}\n\
+${prefix}**I**MAGE ${localization.translate('description_image')}\n\
 ${prefix}**L**EAVE ${localization.translate('description_leave')}\n\
 ${prefix}**M**ANGA ${localization.translate('description_manga')}\n\
 ${prefix}**P**LAY ${localization.translate('description_play')}\n\
 ${prefix}**R**ANK ${localization.translate('description_rank')}\n\
+${prefix}**T**RANSLATE ${localization.translate('description_translate')}\n\
 ${prefix}**W**IKI ${localization.translate('description_wiki')}\
             `);
         }
