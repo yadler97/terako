@@ -102,7 +102,9 @@ client.on('message', (msg) => {
         }
 
         if (command === `${prefix}TRANSLATE` || command === `${prefix}T`) {
-            if (message !== '') {
+            if (message === 'LIST') {
+                translator.getSupportedLanguages(msg);
+            } else if (message !== '') {
                 let [lang, ...text] = message.split(' ');
                 lang = lang.toLowerCase();
                 text = text.join(' ');

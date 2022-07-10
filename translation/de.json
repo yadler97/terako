@@ -55,6 +55,8 @@
 
     "language_not_supported": "Sprache wird nicht unterstützt",
     "no_text_to_translate_entered": "Kein Text zum Übersetzen übergeben",
+    "supported_languages": "Unterstützte Sprachen",
+    "no_supported_languages_found": "Keine unterstützten Sprachen gefunden",
     "no_image_found": "Kein Bild gefunden",
 
     "the_following_commands_are_available_at_the_moment": "Aktuell stehen folgende Befehle zur Verfügung",
@@ -67,7 +69,7 @@
     "description_manga": "<Suchbegriff> - *Gibt Infos zu einem Manga aus*",
     "description_play": "<YouTube-Link>|<Suchbegriff> - *Spielt ein YouTube-Video im Audiokanal ab*",
     "description_rank": "- *Gibt den aktuellen Rang des Users aus*",
-    "description_translate": "<Sprachkürzel> <Text> - *Übersetzt einen Text in eine bestimmte Sprache*",
+    "description_translate": "<Sprachkürzel> <Text>|LIST - *Übersetzt einen Text in eine bestimmte Sprache*",
     "description_wiki": "(<Begriff>) - *Definiert einen bestimmten Begriff mithilfe von Wikipedia*",
 
     "this_command_requires_an_argument": "Dieser Befehl benötigt ein Argument"

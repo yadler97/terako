@@ -55,6 +55,8 @@
 
     "language_not_supported": "Language not supported",
     "no_text_to_translate_entered": "No text to translate entered",
+    "supported_languages": "Supported languages",
+    "no_supported_languages_found": "No supported languages found",
     "no_image_found": "No image found",
 
     "the_following_commands_are_available_at_the_moment": "The following commands are available at the moment",
@@ -67,7 +69,7 @@
     "description_manga": "<search term> - *Prints information about a manga*",
     "description_play": "<YouTube link>|<search term> - *Plays a YouTube video in the voice channel*",
     "description_rank": "- *Prints the current rank of the user*",
-    "description_translate": "<language abbreviation> <text> - *Translates a text into a given language*",
+    "description_translate": "<language abbreviation> <text>|LIST - *Translates a text into a given language*",
     "description_wiki": "(<term>) - *Defines a certain term with the help of Wikipedia*",
 
     "this_command_requires_an_argument": "This command requires an argument"

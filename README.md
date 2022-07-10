@@ -1,6 +1,6 @@
 # terako
 
-terako is a discord bot that offers commands for searching animes and mangas via the anilist API, listening to YouTube videos in a voice channel, displaying current corona incidences in Germany and searching for articles on Wikipedia via the mediawiki API
+terako is a discord bot that offers commands for searching animes and mangas via the anilist API, listening to YouTube videos in a voice channel, displaying current corona incidences in Germany, searching for articles on Wikipedia via the Mediawiki API and searching for images and translating texts via the Bing API.
 
 ## commands
 
@@ -12,7 +12,7 @@ terako is a discord bot that offers commands for searching animes and mangas via
 \>WIKI \(\<keyword>)  
 \>CORONA \(<city|county>|BL|IMPFUNGEN)  
 \>GAME \<name>  
-\>TRANSLATE \<language abbreviation> <text>  
+\>TRANSLATE \<language abbreviation> <text>|LIST  
 \>IMAGE \<search term>  
 \>RANK  
 \>HELP  
