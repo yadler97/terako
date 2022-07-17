@@ -22,11 +22,14 @@ const getGameInfo = function getGameInfo(msg, searchTerm) {
             const matches = stringSimilarity.findBestMatch(searchTerm, games);
             data = data[matches.bestMatchIndex];
 
-            const platforms = data.platforms.map((platform) => platform.name).join(', ');
-            const genres = data.genres.map((genre) => genre.name).join(', ');
-            const developers = data.involved_companies ? data.involved_companies.filter((studio) => studio.developer).map((studio) => studio.company.name).join(', ') : localization.translate('unknown_dev');
-            const publishers = data.involved_companies ? data.involved_companies.filter((studio) => studio.publisher).map((studio) => studio.company.name).join(', ') : localization.translate('unknown_dev');
-            const platformFamilies = data.platforms.map((platform) => platform.platform_family);
+            const platforms = data.platforms ? data.platforms.map((platform) => platform.name).join(', ') : localization.translate('unknown_dev');
+            const genres = data.genres ? data.genres.map((genre) => genre.name).join(', ') : localization.translate('unknown_dev');
+            const developersData = data.involved_companies ? data.involved_companies.filter((studio) => studio.developer) : [];
+            const publishersData = data.involved_companies ? data.involved_companies.filter((studio) => studio.publisher) : [];
+            const developers = developersData.length !== 0 ? developersData.map((studio) => studio.company.name).join(', ') : localization.translate('unknown_dev');
+            const publishers = publishersData.length !== 0 ? publishersData.map((studio) => studio.company.name).join(', ') : localization.translate('unknown_dev');
+            const releaseDate = data.release_dates ? data.release_dates[0].human : localization.translate('unknown_dev');
+            const platformFamilies = data.platforms ? data.platforms.map((platform) => platform.platform_family) : [];
 
             let color = 0x000000;
             if (platformFamilies.includes(2) && !platformFamilies.includes(1) && !platformFamilies.includes(5)) {
@@ -44,12 +47,12 @@ const getGameInfo = function getGameInfo(msg, searchTerm) {
                 .setURL(data.url)
                 .setColor(color)
                 .addField(localization.translate('platforms'), platforms)
-                .addField(localization.translate('release_date'), data.release_dates[0].human)
+                .addField(localization.translate('release_date'), releaseDate)
                 .addField(localization.translate('genres'), genres)
                 .addField(localization.translate('developer'), developers)
                 .addField(localization.translate('publisher'), publishers)
                 .addField(localization.translate('rating'), data.aggregated_rating ? `${data.aggregated_rating.toFixed(0)}%` : localization.translate('no_rating_found'))
-                .setDescription(data.summary);
+                .setDescription(data.summary !== undefined ? data.summary : localization.translate('no_description_found'));
             msg.channel.send(embed);
         }
     });

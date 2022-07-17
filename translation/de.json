@@ -37,6 +37,7 @@
     "publisher": "Publisher",
     "rating": "Bewertung",
     "no_rating_found": "keine Wertung vorhanden",
+    "no_description_found": "keine Beschreibung vorhanden",
     "congratulations_you_have_reached_the_next_rank": "Herzlichen Glückwunsch, {{- author}}, du hast Stufe {{level}} erreicht!",
     "this_command_can_only_be_used_on_a_server": "Dieser Befehl kann nur auf einem Server genutzt werden",
     "your_current_rank_can_not_be_accessed_at_the_moment": "Deine aktuelle Stufe kann momentan nicht abgerufen werden",
