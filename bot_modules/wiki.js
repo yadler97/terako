@@ -2,7 +2,7 @@ const { XMLHttpRequest } = require('xmlhttprequest');
 
 const localization = require('../localization');
 
-const getPageSnippet = function getPageSnippet(msg, url) {
+function getPageSnippet(msg, url) {
     const request = new XMLHttpRequest();
     request.open('GET', url);
     request.addEventListener('load', () => {
@@ -42,20 +42,20 @@ const getPageSnippet = function getPageSnippet(msg, url) {
         }
     });
     request.send();
-};
+}
 
-const getRandomArticle = function getRandomArticle(msg) {
+function getRandomArticle(msg) {
     const url = `${process.env.MEDIAWIKI_URL}w/api.php?%20format=json&action=query&prop=categories|extracts&generator=random&grnnamespace=0`;
     getPageSnippet(msg, url);
-};
+}
 
-const getArticle = function getArticle(msg, searchTerm) {
+function getArticle(msg, searchTerm) {
     let urlSearchTerm = encodeURI(searchTerm);
     const re = /[+]/g;
     urlSearchTerm = urlSearchTerm.replace(re, '%2B').replace('&', '%26');
     const url = `${process.env.MEDIAWIKI_URL}w/api.php?action=query&format=json&prop=categories|extracts&redirects=true&titles=${urlSearchTerm}`;
     getPageSnippet(msg, url);
-};
+}
 
 module.exports = {
     getArticle,

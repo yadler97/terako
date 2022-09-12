@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 
 const localization = require('../localization');
 
-const getAnimeInfo = function getAnimeInfo(msg, searchTerm, type) {
+function getAnimeInfo(msg, searchTerm, type) {
     const query = `
     query ($id: Int, $page: Int, $perPage: Int, $search: String, $type: MediaType) {
         Page (page: $page, perPage: $perPage) {
@@ -114,9 +114,9 @@ const getAnimeInfo = function getAnimeInfo(msg, searchTerm, type) {
             msg.channel.send(localization.translate('no_manga_found'));
         }
     }
-};
+}
 
-const getAnimeList = function getAnimeList(msg, genre) {
+function getAnimeList(msg, genre) {
     const query = `
     query ($id: Int, $page: Int, $perPage: Int, $season: MediaSeason, $seasonYear: Int, $genre: [String]) {
         Page (page: $page, perPage: $perPage) {
@@ -234,7 +234,7 @@ const getAnimeList = function getAnimeList(msg, genre) {
         console.error(error);
         msg.channel.send(localization.translate('no_anime_found'));
     }
-};
+}
 
 module.exports = {
     getAnimeInfo,

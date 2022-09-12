@@ -6,7 +6,7 @@ const localization = require('../localization');
 
 let isReady = true;
 
-const playVideo = function playVideo(msg, videourl) {
+function playVideo(msg, videourl) {
     if (isReady) {
         if (msg.channel.type === 'dm') {
             msg.channel.send(localization.translate('this_command_can_only_be_used_in_voice_channel'));
@@ -46,9 +46,9 @@ const playVideo = function playVideo(msg, videourl) {
             isReady = true;
         }
     }
-};
+}
 
-const searchVideo = async function searchVideo(msg, searchTerm) {
+async function searchVideo(msg, searchTerm) {
     if (msg.channel.type === 'dm') {
         msg.channel.send(localization.translate('this_command_can_only_be_used_in_voice_channel'));
     } else {
@@ -61,9 +61,9 @@ const searchVideo = async function searchVideo(msg, searchTerm) {
             msg.channel.send(localization.translate('no_user_in_voice_channel'));
         }
     }
-};
+}
 
-const leaveAudioChannel = function leaveAudioChannel(msg) {
+function leaveAudioChannel(msg) {
     if (msg.channel.type === 'dm') {
         msg.channel.send(localization.translate('this_command_can_only_be_used_in_voice_channel'));
     } else {
@@ -74,7 +74,7 @@ const leaveAudioChannel = function leaveAudioChannel(msg) {
             msg.channel.send(localization.translate('no_user_in_voice_channel'));
         }
     }
-};
+}
 
 module.exports = {
     playVideo,

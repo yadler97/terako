@@ -2,7 +2,7 @@ const { XMLHttpRequest } = require('xmlhttprequest');
 
 const localization = require('../localization');
 
-const searchImage = async function searchImage(msg, message) {
+async function searchImage(msg, message) {
     const request = new XMLHttpRequest();
     const searchTerm = encodeURI(message);
     request.open('GET', `https://api.bing.microsoft.com/v7.0/images/search?q=${searchTerm}`);
@@ -21,7 +21,7 @@ const searchImage = async function searchImage(msg, message) {
         }
     });
     request.send();
-};
+}
 
 module.exports = {
     searchImage,

@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 
 const localization = require('../localization');
 
-const translateText = function translateText(msg, message, resultLang) {
+function translateText(msg, message, resultLang) {
     if (!lang.isSupported(resultLang)) {
         msg.channel.send(localization.translate('language_not_supported'));
     } else if (message === '') {
@@ -17,7 +17,7 @@ const translateText = function translateText(msg, message, resultLang) {
             console.error(err);
         });
     }
-};
+}
 
 function crawlLanguages(languages) {
     return new Promise((resolve) => {
@@ -39,7 +39,7 @@ function crawlLanguages(languages) {
     });
 }
 
-const getSupportedLanguages = async function getSupportedLanguages(msg) {
+async function getSupportedLanguages(msg) {
     const languages = {};
     await crawlLanguages(languages);
     if (Object.keys(languages).length > 0) {
@@ -63,7 +63,7 @@ const getSupportedLanguages = async function getSupportedLanguages(msg) {
     } else {
         msg.channel.send(localization.translate('no_supported_languages_found'));
     }
-};
+}
 
 module.exports = {
     translateText,

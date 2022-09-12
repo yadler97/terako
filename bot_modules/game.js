@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js');
 
 const localization = require('../localization');
 
-const getGameInfo = function getGameInfo(msg, searchTerm) {
+function getGameInfo(msg, searchTerm) {
     const request = new XMLHttpRequest();
     request.open('POST', 'https://api.igdb.com/v4/games');
     request.setRequestHeader('Client-ID', process.env.IGDB_CLIENT_ID);
@@ -57,7 +57,7 @@ const getGameInfo = function getGameInfo(msg, searchTerm) {
         }
     });
     request.send(`fields name,release_dates.human,platforms.name,platforms.platform_family,summary,url,genres.name,cover.image_id,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,aggregated_rating,screenshots.image_id; limit 10; search "${searchTerm}";`);
-};
+}
 
 module.exports = {
     getGameInfo,

@@ -4,7 +4,7 @@ const localization = require('../localization');
 
 const envLang = localization.getLang();
 
-const getCoronaIncidenceAndDeaths = function getCoronaIncidenceAndDeaths(msg) {
+function getCoronaIncidenceAndDeaths(msg) {
     const requestBl = new XMLHttpRequest();
     requestBl.open('GET', 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/Coronaf%C3%A4lle_in_den_Bundesl%C3%A4ndern/FeatureServer/0/query?where=1%3D1&outFields=LAN_ew_GEN,Death,Fallzahl,cases7_bl&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json');
     requestBl.addEventListener('load', () => {
@@ -20,9 +20,9 @@ ${localization.translate('total_death_cases')}: ${data.map((bl) => bl.attributes
         }
     });
     requestBl.send();
-};
+}
 
-const getCoronaIncidenceBest = function getCoronaIncidenceBest(msg) {
+function getCoronaIncidenceBest(msg) {
     const request = new XMLHttpRequest();
     request.open('GET', 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k,BL&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json');
     request.addEventListener('load', () => {
@@ -42,9 +42,9 @@ ${(`${data[4].attributes.county.replace('SK', localization.translate('city_of'))
         }
     });
     request.send();
-};
+}
 
-const getCoronaIncidenceWorst = function getCoronaIncidenceWorst(msg) {
+function getCoronaIncidenceWorst(msg) {
     const request = new XMLHttpRequest();
     request.open('GET', 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k,BL&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json');
     request.addEventListener('load', () => {
@@ -64,9 +64,9 @@ ${(`${data[4].attributes.county.replace('SK', localization.translate('city_of'))
         }
     });
     request.send();
-};
+}
 
-const getCoronaIncidenceOfRegion = function getCoronaIncidenceOfRegion(msg, regionName) {
+function getCoronaIncidenceOfRegion(msg, regionName) {
     const request = new XMLHttpRequest();
     request.open('GET', 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=county,cases7_per_100k&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json');
     request.addEventListener('load', () => {
@@ -85,9 +85,9 @@ const getCoronaIncidenceOfRegion = function getCoronaIncidenceOfRegion(msg, regi
         }
     });
     request.send();
-};
+}
 
-const getCoronaIncidencePerState = function getCoronaIncidencePerState(msg) {
+function getCoronaIncidencePerState(msg) {
     const requestBl = new XMLHttpRequest();
     requestBl.open('GET', 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/Coronaf%C3%A4lle_in_den_Bundesl%C3%A4ndern/FeatureServer/0/query?where=1%3D1&outFields=cases7_bl_per_100k,LAN_ew_GEN&returnGeometry=false&returnDistinctValues=true&outSR=4326&f=json');
     requestBl.addEventListener('load', () => {
@@ -110,13 +110,13 @@ const getCoronaIncidencePerState = function getCoronaIncidencePerState(msg) {
         }
     });
     requestBl.send();
-};
+}
 
 const statePopulation = {
     'de.bw': 11100394, 'de.by': 13124737, 'de.be': 3669491, 'de.bb': 2521893, 'de.hb': 681202, 'de.hh': 1847253, 'de.he': 6288080, 'de.mv': 1608138, 'de.ni': 7993608, 'de.nw': 17947221, 'de.rp': 4093903, 'de.sl': 986887, 'de.sn': 4071971, 'de.st': 2194782, 'de.sh': 2903773, 'de.th': 2133378, de: 83166711,
 };
 
-const getVaccinationStatus = function getVaccinationStatus(msg) {
+function getVaccinationStatus(msg) {
     const requestVac = new XMLHttpRequest();
     requestVac.open('GET', 'https://interaktiv.morgenpost.de/data/corona/rki-vaccination.json');
     requestVac.addEventListener('load', () => {
@@ -136,9 +136,9 @@ const getVaccinationStatus = function getVaccinationStatus(msg) {
         }
     });
     requestVac.send();
-};
+}
 
-const getStateAbbreviation = function getStateAbbreviation(state) {
+function getStateAbbreviation(state) {
     switch (state) {
     case 'Baden-Württemberg':
         return 'BW';
@@ -175,7 +175,7 @@ const getStateAbbreviation = function getStateAbbreviation(state) {
     default:
         return state;
     }
-};
+}
 
 module.exports = {
     getCoronaIncidenceAndDeaths,

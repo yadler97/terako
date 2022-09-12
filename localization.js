@@ -5,12 +5,12 @@ const fs = require('fs');
 const langFileEN = JSON.parse(fs.readFileSync('./translation/en.json', 'utf8'));
 const langFileDE = JSON.parse(fs.readFileSync('./translation/de.json', 'utf8'));
 
-const getLang = function getLang() {
+function getLang() {
     if (process.env.IS_HEROKU) {
         return 'de-DE';
     }
     return Intl.DateTimeFormat().resolvedOptions().locale;
-};
+}
 
 i18next.init({
     lng: getLang(),
@@ -25,9 +25,9 @@ i18next.init({
     },
 });
 
-const translate = function translate(key, args) {
+function translate(key, args) {
     return i18next.t(key, args);
-};
+}
 
 module.exports = {
     translate,

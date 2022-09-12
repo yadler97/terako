@@ -10,7 +10,7 @@ client.on('error', (error) => {
     client.quit();
 });
 
-const increaseLevel = function increaseLevel(msg) {
+function increaseLevel(msg) {
     if (msg.channel.type !== 'dm' && !msg.author.bot && client.connected) {
         const redisKey = `${msg.guild.id}/${msg.author.id}`;
 
@@ -37,14 +37,14 @@ const increaseLevel = function increaseLevel(msg) {
             }
         });
     }
-};
+}
 
-const sendLevelUpMsg = function sendLevelUpMsg(msg, level) {
+function sendLevelUpMsg(msg, level) {
     const author = `<@!${msg.author.id}>`;
     msg.channel.send(localization.translate('congratulations_you_have_reached_the_next_rank', { author, level }));
-};
+}
 
-const getLevel = function getLevel(msg) {
+function getLevel(msg) {
     if (client.connected) {
         getRanking(msg);
 
@@ -76,13 +76,13 @@ const getLevel = function getLevel(msg) {
     } else {
         msg.channel.send(localization.translate('your_current_rank_can_not_be_accessed_at_the_moment'));
     }
-};
+}
 
-const sendCurrentRank = function sendCurrentRank(msg, level, missing) {
+function sendCurrentRank(msg, level, missing) {
     msg.channel.send(localization.translate('your_current_rank_is', { level, missing }));
-};
+}
 
-const getRanking = function getRanking(msg) {
+function getRanking(msg) {
     if (msg.channel.type !== 'dm') {
         client.keys(`${msg.guild.id}/*`, (err, keys) => {
             client.mget(keys, (err2, values) => {
@@ -103,7 +103,7 @@ const getRanking = function getRanking(msg) {
             });
         });
     }
-};
+}
 
 module.exports = {
     increaseLevel,
