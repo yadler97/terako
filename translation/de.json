@@ -14,8 +14,8 @@
     "in_the_region_of_h": "in der Region H",
     "in_the_city_region": "in der StadtRegion",
     "current_seven_day_incidence_per_state": "Aktuelle 7-Tage-Inzidenz nach Bundesländern",
+
     "no_user_in_voice_channel": "Kein Nutzer im Audiokanal",
-    "this_command_can_only_be_used_in_voice_channel": "Dieser Befehl kann nur im Audiokanal eines Servers genutzt werden",
     "invalid_youtube_link": "Ungültiger YouTube-Link",
     "is_now_playing": "wird jetzt abgespielt",
     "uploader": "Veröffentlicht von",
@@ -23,8 +23,10 @@
     "duration": "Dauer",
     "bot_not_ready": "Bot nicht bereit",
     "voice_channel_successfully_left": "Audiokanal erfolgreich verlassen",
+
     "more_here": "Mehr unter",
     "no_wikipedia_article_found": "Kein Wikipedia-Eintrag gefunden",
+
     "igdb_not_reachable_at_the_moment": "IGDB momentan nicht erreichbar",
     "no_game_found": "Kein Spiel gefunden",
     "unknown_dev": "unbekannt",
@@ -36,11 +38,16 @@
     "rating": "Bewertung",
     "no_rating_found": "keine Wertung vorhanden",
     "no_description_found": "keine Beschreibung vorhanden",
+    "most_anticipated_upcoming_games_for_platform": "Meisterwartete Spiele für **{{platformName}}**",
+    "most_anticipated_upcoming_games": "Meisterwartete Spiele",
+    "no_games_found_for_platform": "Keine Spiele für **{{platformName}}** gefunden",
+
     "congratulations_you_have_reached_the_next_rank": "Herzlichen Glückwunsch, {{- author}}, du hast Stufe {{level}} erreicht!",
     "this_command_can_only_be_used_on_a_server": "Dieser Befehl kann nur auf einem Server genutzt werden",
     "your_current_rank_can_not_be_accessed_at_the_moment": "Deine aktuelle Stufe kann momentan nicht abgerufen werden",
     "your_current_rank_is": "Deine aktuelle Stufe ist {{level}}. Dir fehlen noch {{missing}} Erfahrungspunkte bis zur nächsten Stufe.",
     "current_ranking": "Aktuelle Rangliste",
+
     "episodes": "Episoden",
     "season": "Season",
     "studios": "Studios",
@@ -77,9 +84,5 @@
     "invalid_value": "Ungültiger Wert",
     "invalid_iso_format": "Ungültiges Währungskürzel nach ISO 4217",
     "conversion_result": "Umrechnungsergebnis",
-    "are": "sind",
-
-    "most_anticipated_upcoming_games_for_platform": "Meisterwartete Spiele für **{{platformName}}**",
-    "most_anticipated_upcoming_games": "Meisterwartete Spiele",
-    "no_games_found_for_platform": "Keine Spiele für **{{platformName}}** gefunden"
+    "are": "sind"
 }

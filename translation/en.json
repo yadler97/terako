@@ -14,8 +14,8 @@
     "in_the_region_of_h": "in the region of H",
     "in_the_city_region": "in the city region of",
     "current_seven_day_incidence_per_state": "Current seven-day incidence per state",
+
     "no_user_in_voice_channel": "No user in voice channel",
-    "this_command_can_only_be_used_in_voice_channel": "This command can only be used in the voice channel of a server",
     "invalid_youtube_link": "Invalid YouTube link",
     "is_now_playing": "is now playing",
     "uploader": "Uploader",
@@ -23,8 +23,10 @@
     "duration": "Duration",
     "bot_not_ready": "Bot not ready",
     "voice_channel_successfully_left": "Voice channel successfully left",
+
     "more_here": "More here",
     "no_wikipedia_article_found": "No Wikipedia article found",
+
     "igdb_not_reachable_at_the_moment": "IGDB not reachable at the moment",
     "no_game_found": "No game found",
     "unknown_dev": "unknown",
@@ -36,11 +38,16 @@
     "rating": "Rating",
     "no_rating_found": "no rating found",
     "no_description_found": "no description found",
+    "most_anticipated_upcoming_games_for_platform": "Most anticipated upcoming games for **{{platformName}}**",
+    "most_anticipated_upcoming_games": "Most anticipated upcoming games",
+    "no_games_found_for_platform": "No games found for **{{platformName}}**",
+
     "congratulations_you_have_reached_the_next_rank": "Congratulations, {{- author}}, you have reached rank {{level}}!",
     "this_command_can_only_be_used_on_a_server": "This command can only be used on a server",
     "your_current_rank_can_not_be_accessed_at_the_moment": "Your current rank cannot be accessed at the moment",
     "your_current_rank_is": "Your current rank is {{level}}. You are missing {{missing}} experience points for the next rank.",
     "current_ranking": "Current Ranking",
+
     "episodes": "Episodes",
     "season": "Season",
     "studios": "Studios",
@@ -77,9 +84,5 @@
     "invalid_value": "Invalid value",
     "invalid_iso_format": "Invalid currency abbreviation according to ISO 4217",
     "conversion_result": "Conversion result",
-    "are": "are",
-
-    "most_anticipated_upcoming_games_for_platform": "Most anticipated upcoming games for **{{platformName}}**",
-    "most_anticipated_upcoming_games": "Most anticipated upcoming games",
-    "no_games_found_for_platform": "No games found for **{{platformName}}**"
+    "are": "are"
 }

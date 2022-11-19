@@ -355,6 +355,17 @@ const converter = new SlashCommandBuilder()
         })
         .setRequired(true));
 
+const rank = new SlashCommandBuilder()
+    .setName('rank')
+    .setNameLocalizations({
+        de: 'rang',
+    })
+    .setDescription('returns the current rank of the user')
+    .setDescriptionLocalizations({
+        de: 'gibt den aktuellen Rang des Users aus',
+    })
+    .setDMPermission(false);
+
 module.exports = {
     image,
     wiki,
@@ -373,4 +384,5 @@ module.exports = {
     departure,
     arrival,
     converter,
+    rank,
 };

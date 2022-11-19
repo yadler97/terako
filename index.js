@@ -8,6 +8,7 @@ const corona = require('./bot_modules/corona');
 const currency = require('./bot_modules/currency');
 const game = require('./bot_modules/game');
 const imagesearch = require('./bot_modules/imagesearch');
+const rank = require('./bot_modules/rank');
 const train = require('./bot_modules/train');
 const translator = require('./bot_modules/translator');
 const wikipedia = require('./bot_modules/wiki');
@@ -51,6 +52,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
                     commands.departure,
                     commands.arrival,
                     commands.converter,
+                    commands.rank,
                 ],
             },
         );
@@ -241,6 +243,15 @@ client.on(Events.InteractionCreate, async (interaction) => {
         const result = youtube.leaveAudioChannel(interaction);
         await interaction.reply(result);
     }
+
+    if (interaction.commandName === commands.rank.name) {
+        await interaction.deferReply();
+        await rank.getLevel(interaction);
+    }
+});
+
+client.on(Events.MessageCreate, (msg) => {
+    rank.increaseLevel(msg);
 });
 
 client.login(process.env.DISCORD_TOKEN);
