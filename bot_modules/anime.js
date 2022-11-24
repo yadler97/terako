@@ -90,11 +90,26 @@ async function getAnimeInfo(searchTerm, type) {
                         .setURL(animeData.siteUrl)
                         .setColor(0x9932cc)
                         .addFields(
-                            { name: localization.translate('episodes'), value: String(animeData.episodes) },
-                            { name: localization.translate('genres'), value: animeData.genres.join(', ') },
-                            { name: localization.translate('season'), value: animeData.season && animeData.seasonYear ? `${animeData.season} ${animeData.seasonYear}` : localization.translate('unknown_season') },
-                            { name: localization.translate('studios'), value: studios || localization.translate('unknown_studio') },
-                            { name: localization.translate('average_score'), value: animeData.averageScore ? `${animeData.averageScore}%` : localization.translate('no_rating_found') },
+                            {
+                                name: localization.translate('episodes'),
+                                value: String(animeData.episodes),
+                            },
+                            {
+                                name: localization.translate('genres'),
+                                value: animeData.genres.join(', '),
+                            },
+                            {
+                                name: localization.translate('season'),
+                                value: animeData.season && animeData.seasonYear ? `${animeData.season} ${animeData.seasonYear}` : localization.translate('unknown_season'),
+                            },
+                            {
+                                name: localization.translate('studios'),
+                                value: studios || localization.translate('unknown_studio'),
+                            },
+                            {
+                                name: localization.translate('average_score'),
+                                value: animeData.averageScore ? `${animeData.averageScore}%` : localization.translate('no_rating_found'),
+                            },
                         )
                         .setDescription(animeData.description.replace(/<\/?[^>]+(>|$)/g, ''));
                 } else {
@@ -105,8 +120,14 @@ async function getAnimeInfo(searchTerm, type) {
                         .setURL(animeData.siteUrl)
                         .setColor(0xff7f00)
                         .addFields(
-                            { name: localization.translate('genres'), value: animeData.genres.join(', ') },
-                            { name: localization.translate('average_score'), value: animeData.averageScore ? `${animeData.averageScore}%` : localization.translate('no_rating_found') },
+                            {
+                                name: localization.translate('genres'),
+                                value: animeData.genres.join(', '),
+                            },
+                            {
+                                name: localization.translate('average_score'),
+                                value: animeData.averageScore ? `${animeData.averageScore}%` : localization.translate('no_rating_found'),
+                            },
                         )
                         .setDescription(animeData.description.replace(/<\/?[^>]+(>|$)/g, ''));
                 }

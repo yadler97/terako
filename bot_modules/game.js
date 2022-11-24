@@ -49,12 +49,30 @@ function getGameInfo(searchTerm) {
         .setURL(data.url)
         .setColor(color)
         .addFields(
-            { name: localization.translate('platforms'), value: platforms },
-            { name: localization.translate('release_date'), value: releaseDate },
-            { name: localization.translate('genres'), value: genres },
-            { name: localization.translate('developer'), value: developers },
-            { name: localization.translate('publisher'), value: publishers },
-            { name: localization.translate('rating'), value: data.aggregated_rating ? `${data.aggregated_rating.toFixed(0)}%` : localization.translate('no_rating_found') },
+            {
+                name: localization.translate('platforms'),
+                value: platforms,
+            },
+            {
+                name: localization.translate('release_date'),
+                value: releaseDate,
+            },
+            {
+                name: localization.translate('genres'),
+                value: genres,
+            },
+            {
+                name: localization.translate('developer'),
+                value: developers,
+            },
+            {
+                name: localization.translate('publisher'),
+                value: publishers,
+            },
+            {
+                name: localization.translate('rating'),
+                value: data.aggregated_rating ? `${data.aggregated_rating.toFixed(0)}%` : localization.translate('no_rating_found'),
+            },
         )
         .setDescription(data.summary !== undefined ? data.summary : localization.translate('no_description_found'));
 

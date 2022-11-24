@@ -7,10 +7,10 @@ const {
     getVoiceConnection,
     createAudioPlayer,
     createAudioResource,
-    entersState,
+    // entersState,
     StreamType,
-    AudioPlayerStatus,
-    VoiceConnectionStatus,
+    // AudioPlayerStatus,
+    // VoiceConnectionStatus,
 } = require('@discordjs/voice');
 const localization = require('../localization');
 
@@ -56,7 +56,7 @@ async function playVideo(interaction, videourl) {
             connection.subscribe(player);
 
             const resource = createAudioResource(ytdl(videourl, {
-                quality: 'highestaudio', dlChunkSize: 1 << 12,
+                quality: 'highestaudio', dlChunkSize: 4096,
             }), {
                 inputType: StreamType.WebmOpus,
             });
@@ -75,9 +75,21 @@ async function playVideo(interaction, videourl) {
                 .setURL(info.videoDetails.video_url)
                 .setColor(0xff0000)
                 .addFields(
-                    { name: localization.translate('uploader'), value: info.videoDetails.author.name, inline: true },
-                    { name: localization.translate('upload_date'), value: new Date(info.videoDetails.publishDate).toLocaleDateString(localization.getLang()), inline: true },
-                    { name: localization.translate('duration'), value: time, inline: true },
+                    {
+                        name: localization.translate('uploader'),
+                        value: info.videoDetails.author.name,
+                        inline: true,
+                    },
+                    {
+                        name: localization.translate('upload_date'),
+                        value: new Date(info.videoDetails.publishDate).toLocaleDateString(localization.getLang()),
+                        inline: true,
+                    },
+                    {
+                        name: localization.translate('duration'),
+                        value: time,
+                        inline: true,
+                    },
                 );
 
             isReady = true;
