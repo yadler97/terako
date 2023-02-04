@@ -5,6 +5,24 @@ const { EmbedBuilder } = require('discord.js');
 
 const localization = require('../localization');
 
+function generateToken() {
+    const target = new URL('https://id.twitch.tv/oauth2/token');
+    const params = new URLSearchParams();
+    params.set('client_id', process.env.IGDB_CLIENT_ID);
+    params.set('client_secret', process.env.IGDB_CLIENT_SECRET);
+    params.set('grant_type', 'client_credentials');
+    target.search = params.toString();
+
+    const request = new XMLHttpRequest();
+    request.open('POST', target, false);
+    request.send();
+
+    if (request.status === 200) {
+        const data = JSON.parse(request.responseText);
+        process.env.IGDB_TOKEN = data.access_token;
+    }
+}
+
 function getGameInfo(searchTerm) {
     const request = new XMLHttpRequest();
     request.open('POST', 'https://api.igdb.com/v4/games', false);
@@ -13,6 +31,7 @@ function getGameInfo(searchTerm) {
     request.send(`fields name,release_dates.human,platforms.name,platforms.platform_family,summary,url,genres.name,cover.image_id,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,aggregated_rating,screenshots.image_id; limit 10; search "${searchTerm}";`);
 
     if (request.status === 401) {
+        generateToken();
         return localization.translate('igdb_not_reachable_at_the_moment');
     } if (request.responseText === '[]') {
         return localization.translate('no_game_found');
@@ -125,6 +144,8 @@ function getPlatformID(platform) {
             const data = JSON.parse(request.responseText);
             return data[0];
         }
+
+        generateToken();
     }
 
     return null;
