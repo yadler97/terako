@@ -30,6 +30,7 @@ terako is a discord bot that offers commands for searching animes and mangas via
 | DISCORD_TOKEN | the api token to connect the bot with discord |
 | DISCORD_CLIENT_ID | client id of the discord bot |
 | IGDB_CLIENT_ID | the client ID of your twitch application to connect to the IGDB api |
+| IGDB_CLIENT_SECRET | the client secret used to generate a new IGDB token |
 | IGDB_TOKEN | the token to connect to the IGDB api |
 | MEDIAWIKI_URL | the url of the mediawiki the /wiki command should use, e.g. https://en.wikipedia.org/ |
 | BING_KEY | the key for the azure bing web search service |
